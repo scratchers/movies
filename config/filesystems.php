@@ -55,6 +55,11 @@ return [
             'visibility' => 'public',
         ],
 
+        'movies' => [
+            'driver' => 'local',
+            'root'   => env('PATH_TO_MOVIES'),
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_KEY'),
