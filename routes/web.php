@@ -20,5 +20,3 @@ Auth::routes();
 Route::name('home')->get('/home', 'HomeController@index');
 
 Route::resource('movies', 'MovieController');
-
-Route::name('explore')->get('/explore', 'ExploreController@index');

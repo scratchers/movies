@@ -44,6 +44,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a href="{{ route('movies.index') }}">Browse</a></li>
+                        <li><a href="/mnt/">Explore</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

@@ -84,6 +84,7 @@
 
                 <div class="links">
                     <a href="{{ route('movies.index') }}">Browse</a>
+                    <a href="/mnt/">Explore</a>
                 </div>
             </div>
         </div>

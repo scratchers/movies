@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MovieController extends Controller
 {
@@ -24,7 +25,7 @@ class MovieController extends Controller
      */
     public function create()
     {
-        //
+        return Storage::disk('movies')->allFiles();
     }
 
     /**
