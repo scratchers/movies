@@ -17,6 +17,10 @@ Apache users **note** that there is an included `.htaccess` file
 which contains `Options +Indexes` to allow index browsing.
 You can explicitly forbid this override in the virtual host configuration.
 
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+<p align="center">
+    <a href="https://laravel.com/">
+        <img src="https://laravel.com/assets/img/components/logo-laravel.svg" />
+    </a>
+</p>
 
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
