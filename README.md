@@ -19,25 +19,39 @@ You can explicitly forbid this override in the virtual host configuration.
 
 ## Access Control
 
-The system has an admin group and admin user out of the box.
-Only users that are a member of the admin group can create and edit groups.
-Only admins can create and edit movies.
-Only admins can create and edit group-user and group-movie relationships.
+The system has an admin group and user out of the box with some policies:
+
+* Only users that are a member of the admin group can create and edit groups.
+* Only admins can create and edit movies.
+* Only admins can create and edit group-user and group-movie relationships.
 
 If a movie belongs to a group, then it can only be browsed by
 a user that is a member of the same group.
 
 Some common groups would be:
 
-* admin
-* grownup
+* grownups
 
-Users can create tags and attach tags to movies.
-Some common suggested tags would be:
+## Tags and Ratings
+
+Tags belonging to the admin user_id 1 are attachable by anyone:
 
 * watched
 * blocked
 * starred
+
+Users can create their own custom tags and attach them to movies:
+
+* summer-sports
+* LOL
+
+Tags attached to movies by the admin user_id 1 are visible to everyone.
+These are global movie tags, such as genres:
+
+* drama
+* comedy
+* animated
+* sci-fi
 
 Users can rate movies on an integer scale of 0-100.
 
