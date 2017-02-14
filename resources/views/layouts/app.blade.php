@@ -44,11 +44,12 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a href="{{ route('movies.index') }}">Browse</a></li>
-                        <li><a href="/mnt/">Explore</a></li>
+                        <li><a href="{{ route('movies.create') }}">Create</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/mnt/">Explore</a></li>
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ route('login') }}">Login</a></li>
