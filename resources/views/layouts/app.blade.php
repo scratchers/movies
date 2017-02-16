@@ -44,7 +44,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a href="{{ route('movies.index') }}">Browse</a></li>
-                        <li><a href="{{ route('movies.create') }}">Create</a></li>
+                        <li><a href="{{ route('movies.new') }}">Create</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

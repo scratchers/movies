@@ -23,14 +23,31 @@ class MovieController extends Controller
     }
 
     /**
+     * Display a listing of filenames not found in the database.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function new()
+    {
+        $files  = collect(Storage::disk('movies')->allFiles());
+        $movies = Movie::all()->pluck('filename');
+
+        $data = [
+            'files' => $files->diff($movies),
+        ];
+
+        return view('movies.new', $data);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $data = [
-            'files' => Storage::disk('movies')->allFiles(),
+            'filename' => $request->input('filename', ''),
         ];
 
         return view('movies.create', $data);
