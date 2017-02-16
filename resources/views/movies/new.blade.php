@@ -7,7 +7,7 @@
 
             @foreach ($files as $file)
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{ $file }}</div>
+                    <div class="panel-heading">{{ $file->base }}</div>
                     <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('movies.create') }}">
                         {{ csrf_field() }}
@@ -17,7 +17,7 @@
                             <label for="filename" class="col-md-2 control-label">Filename</label>
 
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="filename" value="{{ $file }}" readonly required>
+                                <input type="text" class="form-control" name="filename" value="{{ $file->name }}" readonly required>
                             </div>
                         </div>
 

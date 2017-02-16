@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use stdClass;
 
 class MovieController extends Controller
 {
@@ -32,8 +33,18 @@ class MovieController extends Controller
         $files  = collect(Storage::disk('movies')->allFiles());
         $movies = Movie::all()->pluck('filename');
 
+        $files  = $files->diff($movies)->transform(function ($item) {
+            $file = new stdClass;
+
+            $file->name = $item;
+
+            $file->base = basename($item);
+
+            return $file;
+        });
+
         $data = [
-            'files' => $files->diff($movies),
+            'files' => $files,
         ];
 
         return view('movies.new', $data);
@@ -46,8 +57,14 @@ class MovieController extends Controller
      */
     public function create(Request $request)
     {
+        $file = new stdClass;
+
+        $file->name = $request->input('filename', '');
+
+        $file->base = basename($file->name);
+
         $data = [
-            'filename' => $request->input('filename', ''),
+            'file' => $file,
         ];
 
         return view('movies.create', $data);
