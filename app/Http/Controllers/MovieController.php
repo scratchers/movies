@@ -30,6 +30,8 @@ class MovieController extends Controller
      */
     public function new()
     {
+        $this->authorize('create', Movie::class);
+
         $files  = collect(Storage::disk('movies')->allFiles());
         $movies = Movie::all()->pluck('filename');
 
@@ -57,6 +59,8 @@ class MovieController extends Controller
      */
     public function create(Request $request)
     {
+        $this->authorize(Movie::class);
+
         $file = new stdClass;
 
         $file->name = $request->input('filename', '');
@@ -78,6 +82,8 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Movie::class);
+
         Movie::create($request->all());
 
         return redirect(route('movies.index'));
