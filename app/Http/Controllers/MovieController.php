@@ -84,7 +84,11 @@ class MovieController extends Controller
     {
         $this->authorize('create', Movie::class);
 
-        Movie::create($request->all());
+        $movie = Movie::withTrashed()->firstOrCreate($request->except('_method', '_token'));
+
+        if ($movie->trashed()) {
+            $movie->restore();
+        }
 
         return redirect(route('movies.index'));
     }
@@ -143,6 +147,10 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
-        //
+        $this->authorize('delete', $movie);
+
+        $movie->delete();
+
+        return redirect(route('movies.index'));
     }
 }

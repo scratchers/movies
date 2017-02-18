@@ -19,7 +19,7 @@ class MoviePolicy
      */
     public function view(User $user, Movie $movie)
     {
-        //
+        return true;
     }
 
     /**
@@ -54,6 +54,6 @@ class MoviePolicy
      */
     public function delete(User $user, Movie $movie)
     {
-        //
+        return true;
     }
 }

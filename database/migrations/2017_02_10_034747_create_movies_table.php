@@ -18,6 +18,7 @@ class CreateMoviesTable extends Migration
             $table->timestamps();
 
             $table->string('filename')->unique();
+            $table->softDeletes();
         });
     }
 
