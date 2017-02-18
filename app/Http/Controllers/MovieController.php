@@ -26,11 +26,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $data = [
-            'movies' => Movie::all(),
-        ];
-
-        return view('movies.index', $data);
+        return view('movies.index', ['movies' => Movie::all()]);
     }
 
     /**
@@ -45,21 +41,15 @@ class MovieController extends Controller
         $files  = collect(Storage::disk('movies')->allFiles());
         $movies = Movie::all()->pluck('filename');
 
-        $files  = $files->diff($movies)->transform(function ($item) {
-            $file = new stdClass;
+        $movies = $files->diff($movies)->transform(function ($filename) {
+            $movie = new Movie;
 
-            $file->name = $item;
+            $movie->filename = $filename;
 
-            $file->base = basename($item);
-
-            return $file;
+            return $movie;
         });
 
-        $data = [
-            'files' => $files,
-        ];
-
-        return view('movies.new', $data);
+        return view('movies.new', ['movies' => $movies]);
     }
 
     /**
@@ -71,17 +61,11 @@ class MovieController extends Controller
     {
         $this->authorize(Movie::class);
 
-        $file = new stdClass;
+        $movie = new Movie;
 
-        $file->name = $request->input('filename', '');
+        $movie->filename = $request->input('filename', '');
 
-        $file->base = basename($file->name);
-
-        $data = [
-            'file' => $file,
-        ];
-
-        return view('movies.create', $data);
+        return view('movies.create', ['movie' => $movie]);
     }
 
     /**
