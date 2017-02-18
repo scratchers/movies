@@ -10,6 +10,16 @@ use stdClass;
 class MovieController extends Controller
 {
     /**
+     * Creates Movie Controller with auth middleware.
+     *
+     * @return MovieController
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index','show']]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
