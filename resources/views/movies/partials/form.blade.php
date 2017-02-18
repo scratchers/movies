@@ -1,9 +1,9 @@
 <div class="panel panel-default">
     <div class="panel-heading">{{ $movie->basename }}</div>
     <div class="panel-body">
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('movies.store') }}">
+    <form class="form-horizontal" role="form" method="POST" action="{{ $route }}">
         {{ csrf_field() }}
-        <p></p>
+        {{ $method }}
 
         <div class="form-group{{ $errors->has('filename') ? ' has-error' : '' }}">
             <label for="filename" class="col-md-2 control-label">Filename</label>

@@ -42,7 +42,7 @@ class MoviePolicy
      */
     public function update(User $user, Movie $movie)
     {
-        //
+        return true;
     }
 
     /**

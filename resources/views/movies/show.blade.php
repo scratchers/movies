@@ -12,12 +12,21 @@
                     <label for="filename" class="col-md-2 control-label">Filename</label>
 
                     <div class="col-md-10">
-                        <input type="text" class="form-control" name="filename" value="{{ $movie->filename }}" readonly required>
+                        <input type="text" class="form-control" name="filename" value="{{ $movie->filename }}" readonly>
                     </div>
 
-                </form>
                 </div>
             </div>
+
+            @can('update', $movie)
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{{ route('movies.edit', $movie) }}" class="btn btn-warning">
+                        Edit
+                    </a>
+                </div>
+            </div>
+            @endcan
 
         </div>
     </div>

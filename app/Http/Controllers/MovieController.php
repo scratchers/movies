@@ -65,7 +65,13 @@ class MovieController extends Controller
 
         $movie->filename = $request->input('filename', '');
 
-        return view('movies.create', ['movie' => $movie]);
+        $data = [
+            'movie'  => $movie,
+            'route'  => route('movies.store'),
+            'method' => method_field('POST'),
+        ];
+
+        return view('movies.create', $data);
     }
 
     /**
@@ -102,7 +108,15 @@ class MovieController extends Controller
      */
     public function edit(Movie $movie)
     {
-        //
+        $this->authorize('update', $movie);
+
+        $data = [
+            'movie'  => $movie,
+            'route'  => route('movies.update', $movie),
+            'method' => method_field('PUT'),
+        ];
+
+        return view('movies.edit', $data);
     }
 
     /**
@@ -114,7 +128,11 @@ class MovieController extends Controller
      */
     public function update(Request $request, Movie $movie)
     {
-        //
+        $this->authorize('update', $movie);
+
+        $movie->update($request->all());
+
+        return view('movies.show', ['movie' => $movie]);
     }
 
     /**
