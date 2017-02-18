@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::resource('groups', 'GroupController');
+
 Route::name('home')->get('/home', 'HomeController@index');
 
 Route::name('movies.new')->get('/movies/new', 'MovieController@new');
