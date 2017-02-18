@@ -3,7 +3,7 @@
     <div class="panel-body">
     <form class="form-horizontal" role="form" method="POST" action="{{ $route }}">
         {{ csrf_field() }}
-        {{ $method }}
+        {{ $method or '' }}
 
         <div class="form-group{{ $errors->has('filename') ? ' has-error' : '' }}">
             <label for="filename" class="col-md-2 control-label">Filename</label>

@@ -68,7 +68,6 @@ class MovieController extends Controller
         $data = [
             'movie'  => $movie,
             'route'  => route('movies.store'),
-            'method' => method_field('POST'),
         ];
 
         return view('movies.create', $data);
