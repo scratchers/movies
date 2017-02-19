@@ -43,10 +43,6 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        @can('create', App\Movie::class)
-                        <li><a href="{{ route('movies.new') }}">Create</a></li>
-                        @endcan
-
                         @if ( Auth::check() )
                         <li><a href="{{ route('groups.index') }}">Groups</a></li>
                         @endif
