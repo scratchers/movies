@@ -19,7 +19,7 @@ You can explicitly forbid this override in the virtual host configuration.
 
 ## Access Control
 
-The system has an admin group and user out of the box with some policies:
+The system has an admin group out of the box with some policies:
 
 * Only users that are a member of the admin group can create and edit groups.
 * Only admins can create and edit movies.
@@ -32,9 +32,39 @@ Some common groups would be:
 
 * grownups
 
+On installation, you will need to register a new user like normal, but then you
+will need to manually add them to the `admin` group because no other admin yet
+exists. The easiest method is probably to use artisan tinker:
+
+    php artisan tinker
+
+Then find your user, the `admin` group, and attach it to the user's groups.
+
+```php
+>>> $jeff = App\User::find(1)
+=> App\User {#690
+     id: 1,
+     name: "jeff",
+     email: "jeff@example.com",
+     created_at: "2017-02-19 20:13:22",
+     updated_at: "2017-02-19 20:13:22",
+   }
+
+>>> $admin = App\Group::find(1)
+=> App\Group {#706
+     id: 1,
+     created_at: null,
+     updated_at: null,
+     name: "admin",
+     deleted_at: null,
+   }
+
+>>> $jeff->groups()->attach($admin)
+```
+
 ## Tags and Ratings
 
-Tags belonging to the admin user_id 1 are attachable by anyone:
+Tags belonging to no one are attachable by anyone:
 
 * watched
 * blocked
@@ -45,7 +75,7 @@ Users can create their own custom tags and attach them to movies:
 * summer-sports
 * LOL
 
-Tags attached to movies by the admin user_id 1 are visible to everyone.
+Tags attached to movies by no one are visible to everyone.
 These are global movie tags, such as genres:
 
 * drama

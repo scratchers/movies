@@ -26,4 +26,20 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Groups in which the user is a member.
+     */
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class);
+    }
+
+    /**
+     * Whether or not the user is a member of the admin group.
+     */
+    public function isAdmin() : bool
+    {
+        return $this->groups->contains(1);
+    }
 }

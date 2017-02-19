@@ -3,27 +3,27 @@
 namespace App\Policies;
 
 use App\User;
-use App\Movie;
+use App\Group;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class MoviePolicy
+class GroupPolicy
 {
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the movie.
+     * Determine whether the user can view the group.
      *
      * @param  \App\User  $user
-     * @param  \App\Movie  $movie
+     * @param  \App\Group  $group
      * @return mixed
      */
-    public function view(User $user, Movie $movie)
+    public function view(User $user, Group $group)
     {
-        return true;
+        return $group->users->contains($user);
     }
 
     /**
-     * Determine whether the user can create movies.
+     * Determine whether the user can create groups.
      *
      * @param  \App\User  $user
      * @return mixed
@@ -34,25 +34,25 @@ class MoviePolicy
     }
 
     /**
-     * Determine whether the user can update the movie.
+     * Determine whether the user can update the group.
      *
      * @param  \App\User  $user
-     * @param  \App\Movie  $movie
+     * @param  \App\Group  $group
      * @return mixed
      */
-    public function update(User $user, Movie $movie)
+    public function update(User $user, Group $group)
     {
         return false;
     }
 
     /**
-     * Determine whether the user can delete the movie.
+     * Determine whether the user can delete the group.
      *
      * @param  \App\User  $user
-     * @param  \App\Movie  $movie
+     * @param  \App\Group  $group
      * @return mixed
      */
-    public function delete(User $user, Movie $movie)
+    public function delete(User $user, Group $group)
     {
         return false;
     }

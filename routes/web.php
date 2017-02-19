@@ -12,12 +12,16 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route('movies.index'));
 });
 
 Auth::routes();
 
-Route::name('home')->get('/home', 'HomeController@index');
+Route::group(['middleware' => 'auth'], function(){
+    Route::resource('groups', 'GroupController');
+
+    Route::name('home')->get('/home', 'HomeController@index');
+});
 
 Route::name('movies.new')->get('/movies/new', 'MovieController@new');
 Route::name('movies.addnew')->post('/movies/create', 'MovieController@create');
