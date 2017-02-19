@@ -20,6 +20,10 @@ class CreateGroupsTable extends Migration
             $table->string('name')->unique();
             $table->softDeletes();
         });
+
+        DB::table('groups')->insert(
+            ['name' => 'admin']
+        );
     }
 
     /**
