@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-    <div class="panel-heading">{{ $group->name }}</div>
+    <div class="panel-heading">{{ $group->name or 'Create New Group' }}</div>
     <div class="panel-body">
     <form class="form-horizontal" role="form" method="POST" action="{{ $route }}">
         {{ csrf_field() }}

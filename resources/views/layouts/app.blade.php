@@ -52,6 +52,10 @@
                         @if ( Auth::check() )
                         <li><a href="{{ route('groups.index') }}">Groups</a></li>
                         @endif
+
+                        @can('create', App\Group::class)
+                        <li><a href="{{ route('groups.create') }}">Create</a></li>
+                        @endcan
                     </ul>
 
                     <!-- Right Side Of Navbar -->

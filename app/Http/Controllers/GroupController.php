@@ -24,7 +24,16 @@ class GroupController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize(Group::class);
+
+        $group = new Group;
+
+        $data = [
+            'group'  => $group,
+            'route'  => route('groups.store'),
+        ];
+
+        return view('groups.create', $data);
     }
 
     /**
@@ -35,7 +44,15 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('create', Group::class);
+
+        $group = Group::withTrashed()->firstOrCreate($request->except('_method', '_token'));
+
+        if ($group->trashed()) {
+            $group->restore();
+        }
+
+        return redirect(route('groups.show', $group));
     }
 
     /**

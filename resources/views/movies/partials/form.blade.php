@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-    <div class="panel-heading">{{ $movie->basename }}</div>
+    <div class="panel-heading">{{ $movie->basename or 'Create New Movie' }}</div>
     <div class="panel-body">
     <form class="form-horizontal" role="form" method="POST" action="{{ $route }}">
         {{ csrf_field() }}
