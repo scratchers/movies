@@ -35,7 +35,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand" href="{{ route('movies.index') }}">
                         {{ config('app.name', 'Movies') }}
                     </a>
                 </div>
@@ -43,8 +43,6 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <li><a href="{{ route('movies.index') }}">Browse</a></li>
-
                         @can('create', App\Movie::class)
                         <li><a href="{{ route('movies.new') }}">Create</a></li>
                         @endcan
