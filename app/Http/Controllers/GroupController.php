@@ -57,7 +57,15 @@ class GroupController extends Controller
      */
     public function edit(Group $group)
     {
-        //
+        $this->authorize('update', $group);
+
+        $data = [
+            'group'  => $group,
+            'route'  => route('groups.update', $group),
+            'method' => method_field('PUT'),
+        ];
+
+        return view('groups.edit', $data);
     }
 
     /**

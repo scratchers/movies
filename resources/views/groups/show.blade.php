@@ -9,10 +9,10 @@
                 <div class="panel-heading">{{ $group->name }}</div>
                 <div class="panel-body">
 
-                    <label for="groupname" class="col-md-2 control-label">Name</label>
+                    <label for="name" class="col-md-2 control-label">Name</label>
 
                     <div class="col-md-10">
-                        <input type="text" class="form-control" name="groupname" value="{{ $group->name }}" readonly>
+                        <input type="text" class="form-control" name="name" value="{{ $group->name }}" readonly>
                     </div>
 
                 </div>
