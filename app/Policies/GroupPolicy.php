@@ -19,7 +19,7 @@ class GroupPolicy
      */
     public function view(User $user, Group $group)
     {
-        return true;
+        return $group->users->contains($user);
     }
 
     /**
@@ -30,7 +30,7 @@ class GroupPolicy
      */
     public function create(User $user)
     {
-        return $user->isAdmin();
+        return false;
     }
 
     /**
@@ -42,7 +42,7 @@ class GroupPolicy
      */
     public function update(User $user, Group $group)
     {
-        return $user->isAdmin();
+        return false;
     }
 
     /**
@@ -54,6 +54,6 @@ class GroupPolicy
      */
     public function delete(User $user, Group $group)
     {
-        return $user->isAdmin();
+        return false;
     }
 }
