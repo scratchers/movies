@@ -44,9 +44,14 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a href="{{ route('movies.index') }}">Browse</a></li>
+
                         @can('create', App\Movie::class)
                         <li><a href="{{ route('movies.new') }}">Create</a></li>
                         @endcan
+
+                        @if ( Auth::check() )
+                        <li><a href="{{ route('groups.index') }}">Groups</a></li>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
