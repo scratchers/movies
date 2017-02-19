@@ -44,7 +44,9 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a href="{{ route('movies.index') }}">Browse</a></li>
+                        @can('create', App\Movie::class)
                         <li><a href="{{ route('movies.new') }}">Create</a></li>
+                        @endcan
                     </ul>
 
                     <!-- Right Side Of Navbar -->
