@@ -15,6 +15,7 @@
 
                 <div class="panel-body">
                 </div>
+            </div>
         @endforeach
     </div>
 </div>
