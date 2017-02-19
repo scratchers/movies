@@ -30,7 +30,7 @@ class GroupPolicy
      */
     public function create(User $user)
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -42,7 +42,7 @@ class GroupPolicy
      */
     public function update(User $user, Group $group)
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -54,6 +54,6 @@ class GroupPolicy
      */
     public function delete(User $user, Group $group)
     {
-        return true;
+        return $user->isAdmin();
     }
 }

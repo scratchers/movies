@@ -12,4 +12,12 @@ class Group extends Model
     protected $fillable = [
         'name',
     ];
+
+    /**
+     * The group members.
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }
