@@ -94,7 +94,11 @@ class GroupController extends Controller
      */
     public function update(Request $request, Group $group)
     {
-        //
+        $this->authorize('update', $group);
+
+        $group->update($request->all());
+
+        return view('groups.show', ['group' => $group]);
     }
 
     /**
@@ -105,6 +109,10 @@ class GroupController extends Controller
      */
     public function destroy(Group $group)
     {
-        //
+        $this->authorize('delete', $group);
+
+        $group->delete();
+
+        return redirect(route('groups.index'));
     }
 }
