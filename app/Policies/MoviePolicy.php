@@ -30,7 +30,7 @@ class MoviePolicy
      */
     public function create(User $user)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -42,7 +42,7 @@ class MoviePolicy
      */
     public function update(User $user, Movie $movie)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -54,6 +54,6 @@ class MoviePolicy
      */
     public function delete(User $user, Movie $movie)
     {
-        return true;
+        return false;
     }
 }
