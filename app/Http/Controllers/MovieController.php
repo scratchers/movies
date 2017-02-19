@@ -89,7 +89,7 @@ class MovieController extends Controller
             $movie->restore();
         }
 
-        return redirect(route('movies.index'));
+        return redirect(route('movies.show', $movie));
     }
 
     /**
