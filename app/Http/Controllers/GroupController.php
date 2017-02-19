@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Group;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
 {
@@ -14,7 +15,11 @@ class GroupController extends Controller
      */
     public function index()
     {
-        return view('groups.index', ['groups' => Group::all()]);
+        $user = Auth::user();
+
+        $groups = $user->isAdmin() ? Group::all() : $user->groups;
+
+        return view('groups.index', ['groups' => $groups]);
     }
 
     /**
