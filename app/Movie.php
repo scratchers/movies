@@ -24,6 +24,22 @@ class Movie extends Model
         'deleted_at',
     ];
 
+    /**
+     * Groups in which the movie is a member.
+     */
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class);
+    }
+
+    /**
+     * Does this movie belong to any groups?
+     */
+    public function hasGroups() : bool
+    {
+        return !$this->groups->isEmpty();
+    }
+
     public function __get($key)
     {
         if ($key === 'basename') {

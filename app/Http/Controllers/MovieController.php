@@ -6,6 +6,8 @@ use App\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use stdClass;
+use App\Policies\MoviePolicy;
+use Illuminate\Support\Facades\Auth;
 
 class MovieController extends Controller
 {
@@ -26,7 +28,25 @@ class MovieController extends Controller
      */
     public function index()
     {
-        return view('movies.index', ['movies' => Movie::all()]);
+        $user = Auth::user();
+
+        $movies = Movie::with('groups')->get()->filter(function ($movie, $key) use ($user) {
+            if ( $movie->groups->isEmpty() ) {
+                return true;
+            }
+
+            if ( is_null($user) ) {
+                return false;
+            }
+
+            if ( $user->isAdmin() ) {
+                return true;
+            }
+
+            return (new MoviePolicy)->view($user, $movie);
+        });
+
+        return view('movies.index', ['movies' => $movies]);
     }
 
     /**
@@ -100,6 +120,10 @@ class MovieController extends Controller
      */
     public function show(Movie $movie)
     {
+        if ( $movie->hasGroups() ) {
+            $this->authorize('view', $movie);
+        }
+
         return view('movies.show', ['movie' => $movie]);
     }
 

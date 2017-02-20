@@ -14,10 +14,18 @@ class Group extends Model
     ];
 
     /**
-     * The group members.
+     * The group's users.
      */
     public function users()
     {
         return $this->belongsToMany(User::class);
+    }
+
+    /**
+     * The group's movies.
+     */
+    public function movies()
+    {
+        return $this->belongsToMany(Movie::class);
     }
 }

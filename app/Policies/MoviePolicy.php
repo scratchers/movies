@@ -19,7 +19,13 @@ class MoviePolicy
      */
     public function view(User $user, Movie $movie)
     {
-        return true;
+        foreach ( $movie->groups as $group ) {
+            if ( $group->users->contains($user) ) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
