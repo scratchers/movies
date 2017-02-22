@@ -10,6 +10,7 @@ use App\User;
 class ScenarioTest extends DuskTestCase
 {
     private static $firstTest = true;
+    private static $admin;
 
     public function setUp()
     {
@@ -17,17 +18,16 @@ class ScenarioTest extends DuskTestCase
         if (static::$firstTest) {
             $this->artisan('migrate:refresh');
             $this->artisan('db:seed');
+            static::$admin = User::find(1);
             static::$firstTest = false;
         }
     }
 
-    public function testAdminCanCreateAndDestroyMovie()
+    public function testAdminCanCreateMovie()
     {
-        $admin = User::find(1);
-
-        $this->browse(function ($browser) use ($admin) {
+        $this->browse(function ($browser) {
             $browser->visit('/login')
-                    ->type('email', $admin->email)
+                    ->type('email', static::$admin->email)
                     ->type('password', 'password')
                     ->press('Login')
                     ->assertPathIs('/movies')
@@ -42,13 +42,29 @@ class ScenarioTest extends DuskTestCase
                     ->assertSee('Edit')
                     ->visit('/movies')
                     ->assertSee('film')
+                    ->clickLink(static::$admin->first_name)
+                    ->clickLink('Logout');
+        });
+    }
+
+    public function testAdminCanDestroyMovie()
+    {
+        $this->browse(function ($browser) {
+            $browser->visit('/login')
+                    ->type('email', static::$admin->email)
+                    ->type('password', 'password')
+                    ->press('Login')
+                    ->visit('/movies')
+                    ->assertSee('film')
                     ->clickLink('film')
                     ->assertPathIs('/movies/1')
                     ->clickLink('Edit')
                     ->assertPathIs('/movies/1/edit')
                     ->press('Delete')
                     ->assertPathIs('/movies')
-                    ->assertDontSee('film');
+                    ->assertDontSee('film')
+                    ->clickLink(static::$admin->first_name)
+                    ->clickLink('Logout');
         });
     }
 }
