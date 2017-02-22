@@ -7,28 +7,20 @@ use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\User;
 
-class MovieTest extends DuskTestCase
+class ScenarioTest extends DuskTestCase
 {
-    use DatabaseMigrations {
-        runDatabaseMigrations as baseRunDatabaseMigrations;
-    }
+    private static $firstTest = true;
 
-    /**
-     * Define hooks to migrate the database before and after each test.
-     *
-     * @return void
-     */
-    public function runDatabaseMigrations()
+    public function setUp()
     {
-        $this->baseRunDatabaseMigrations();
-        $this->artisan('db:seed');
+        parent::setUp();
+        if (static::$firstTest) {
+            $this->artisan('migrate:refresh');
+            $this->artisan('db:seed');
+            static::$firstTest = false;
+        }
     }
 
-    /**
-     * A basic browser test example.
-     *
-     * @return void
-     */
     public function testAdminCanCreateAndDestroyMovie()
     {
         $admin = User::find(1);
