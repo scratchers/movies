@@ -57,7 +57,10 @@ return [
 
         'movies' => [
             'driver' => 'local',
-            'root'   => env('PATH_TO_MOVIES'),
+            'root'   => call_user_func(function(){
+                $movies = env('PATH_TO_MOVIES');
+                return is_dir($movies) ? $movies : base_path($movies);
+            }),
         ],
 
         's3' => [
