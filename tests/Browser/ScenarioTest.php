@@ -51,11 +51,23 @@ class ScenarioTest extends DuskTestCase
                     ->assertSee('film')
                     ->assertSee('Edit')
                     ->visit('/movies')
-                    ->assertSee('film')
-                    ->assertSee(static::$admin->name)
+                    ->assertSee('film');
+        });
+    }
+
+    /**
+     * Test admin can logout.
+     *
+     * @return void
+     */
+    public function testAdminCanLogout()
+    {
+        $this->browse(function ($browser) {
+            $browser->assertSee(static::$admin->name)
                     ->clickLink(static::$admin->name)
                     ->assertSee('Logout')
-                    ->clickLink('Logout');
+                    ->clickLink('Logout')
+                    ->assertDontSee(static::$admin->name);
         });
     }
 
