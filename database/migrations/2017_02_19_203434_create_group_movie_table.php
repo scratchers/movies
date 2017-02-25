@@ -15,9 +15,16 @@ class CreateGroupMovieTable extends Migration
     {
         Schema::create('group_movie', function (Blueprint $table) {
             $table->integer('group_id')->unsigned();
-            $table->foreign('group_id')->references('id')->on('groups');
+            $table->foreign('group_id')
+                ->references('id')
+                ->on('groups')
+                ->onDelete('cascade');
+
             $table->integer('movie_id')->unsigned();
-            $table->foreign('movie_id')->references('id')->on('movies');
+            $table->foreign('movie_id')
+                ->references('id')
+                ->on('movies')
+                ->onDelete('cascade');
         });
     }
 
