@@ -21,6 +21,7 @@ $('select').select2();
 
         @can('delete', $movie)
         <div class="panel panel-default">
+            <div class="panel-heading">Groups</div>
             <div class="panel-body">
 
                 <form role="form"
