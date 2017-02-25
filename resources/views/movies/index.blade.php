@@ -5,7 +5,7 @@
 
     @can('create', App\Movie::class)
     <div class="panel panel-default">
-        <div class="panel-body">
+        <div class="panel-body flex-container">
             <a href="{{ route('movies.new') }}" class="btn btn-primary">
                 Create New Movie
             </a>

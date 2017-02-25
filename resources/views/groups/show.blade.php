@@ -20,7 +20,7 @@
 
             @can('update', $group)
             <div class="panel panel-default">
-                <div class="panel-body">
+                <div class="panel-body flex-container">
                     <a href="{{ route('groups.edit', $group) }}" class="btn btn-warning">
                         Edit
                     </a>

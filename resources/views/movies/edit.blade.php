@@ -2,13 +2,6 @@
 
 @section('head')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-<style>
-.flex-container {
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-}
-</style>
 @endsection()
 
 @section('scripts')

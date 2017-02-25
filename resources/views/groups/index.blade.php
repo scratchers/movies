@@ -9,7 +9,7 @@
 
         @can('create', App\Group::class)
         <div class="panel panel-default">
-            <div class="panel-body">
+            <div class="panel-body flex-container">
                 <a href="{{ route('groups.create') }}" class="btn btn-primary">
                     Create New Group
                 </a>
