@@ -137,10 +137,13 @@ class MovieController extends Controller
     {
         $this->authorize('update', $movie);
 
+        $groups = Group::all()->diff($movie->groups);
+
         $data = [
             'movie'  => $movie,
             'route'  => route('movies.update', $movie),
             'method' => method_field('PUT'),
+            'groups' => $groups,
         ];
 
         return view('movies.edit', $data);

@@ -36,8 +36,19 @@ $('select').select2();
                                 class="js-example-basic-multiple"
                                 multiple="multiple"
                                 style="width:100%">
-                                <option value="1">Admin</option>
-                                <option value="2">Grown Ups</option>
+
+                                @foreach($movie->groups as $group)
+                                <option value="{{ $group->id }}" selected="true">
+                                    {{ $group->name }}
+                                </option>
+                                @endforeach
+
+                                @foreach($groups as $group)
+                                <option value="{{ $group->id }}">
+                                    {{ $group->name }}
+                                </option>
+                                @endforeach
+
                             </select>
                         </div>
                     </div>
