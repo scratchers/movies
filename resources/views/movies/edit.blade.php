@@ -38,13 +38,15 @@ $('select').select2();
                                 style="width:100%">
 
                                 @foreach($movie->groups as $group)
-                                <option value="{{ $group->id }}" selected="true">
+                                <option id="group-{{ $group->id }}"
+                                    value="{{ $group->id }}" selected="true">
                                     {{ $group->name }}
                                 </option>
                                 @endforeach
 
                                 @foreach($groups as $group)
-                                <option value="{{ $group->id }}">
+                                <option id="group-{{ $group->id }}"
+                                    value="{{ $group->id }}">
                                     {{ $group->name }}
                                 </option>
                                 @endforeach

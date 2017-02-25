@@ -51,7 +51,31 @@ class ScenarioTest extends DuskTestCase
                     ->assertSee('film')
                     ->assertSee('Edit')
                     ->visit('/movies')
-                    ->assertSee('film');
+                    ->assertSee('film')
+            ;
+        });
+    }
+
+    public function testAdminCanGroupMovie()
+    {
+        $this->browse(function ($browser) {
+            $browser->visit('/movies')
+                    ->clickLink('Create New Movie')
+                    ->assertPathIs('/movies/new')
+                    ->press('Submit')
+                    ->assertPathIs('/movies/create')
+                    ->press('Submit')
+                    ->assertPathIs('/movies/2')
+                    ->assertSee('movie.mkv')
+                    ->assertSee('Edit')
+                    ->clickLink('Edit')
+                    ->assertNotSelected('groups[]', '2')
+                    ->select('groups[]', '2')
+                    ->press('Save')
+                    ->assertPathIs('/movies/2')
+                    ->visit('/movies/2/edit')
+                    ->assertSelected('groups[]', '2')
+            ;
         });
     }
 
@@ -67,11 +91,12 @@ class ScenarioTest extends DuskTestCase
                     ->clickLink(static::$admin->name)
                     ->assertSee('Logout')
                     ->clickLink('Logout')
-                    ->assertDontSee(static::$admin->name);
+                    ->assertDontSee(static::$admin->name)
+            ;
         });
     }
 
-    public function testUserCanRegisterAndSeeFilm()
+    public function testUserCanRegisterAndSeeCorrectFilms()
     {
         $this->browse(function ($browser) {
             $browser->visit('/register')
@@ -83,8 +108,19 @@ class ScenarioTest extends DuskTestCase
                     ->assertPathIs('/home')
                     ->assertSee(static::$user->name)
                     ->visit('/movies')
-                    ->assertSee('film')
-                    ->clickLink('Logout');
+                    ->assertVisible('#link-movie-1')
+                    ->assertMissing('#link-movie-2')
+            ;
+        });
+    }
+
+    public function testUserCanLogout()
+    {
+        $this->browse(function ($browser) {
+            $browser->assertSee(static::$user->name)
+                    ->clickLink('Logout')
+                    ->assertDontSee(static::$user->name)
+            ;
         });
     }
 
@@ -104,7 +140,8 @@ class ScenarioTest extends DuskTestCase
                     ->press('Delete')
                     ->assertPathIs('/movies')
                     ->assertDontSee('film')
-                    ->clickLink('Logout');
+                    ->clickLink('Logout')
+            ;
         });
     }
 }
