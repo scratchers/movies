@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use stdClass;
 use App\Policies\MoviePolicy;
 use Illuminate\Support\Facades\Auth;
+use App\Group;
 
 class MovieController extends Controller
 {
@@ -175,5 +175,23 @@ class MovieController extends Controller
         $movie->delete();
 
         return redirect(route('movies.index'));
+    }
+
+    /**
+     * Synchronize a movie's groups.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Movie  $movie
+     * @return \Illuminate\Http\Response
+     */
+    public function group(Request $request, Movie $movie)
+    {
+        $this->authorize('update', $movie);
+
+        $groups = Group::find($request->input('groups'));
+
+        $movie->groups()->sync($groups ?? []);
+
+        return redirect(route('movies.show', ['movie' => $movie]));
     }
 }

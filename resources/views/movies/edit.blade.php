@@ -21,14 +21,41 @@ $('select').select2();
 
         @can('delete', $movie)
         <div class="panel panel-default">
+            <div class="panel-body">
+
+                <form role="form"
+                    action="{{ route('movies.group', $movie) }}"
+                    method="POST"
+                    class="form-horizontal">
+                    {{ csrf_field() }}
+                    {{ method_field('PUT') }}
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <select name="groups[]"
+                                class="js-example-basic-multiple"
+                                multiple="multiple"
+                                style="width:100%">
+                                <option value="1">Admin</option>
+                                <option value="2">Grown Ups</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-warning">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <div class="panel panel-default">
             <div class="panel-body flex-container">
-
-                <select class="js-example-basic-multiple" multiple="multiple" style="width: 50%">
-                    <option value="AL">Alabama</option>
-                    <option value="AR">Arkansas</option>
-                    <option value="WY">Wyoming</option>
-                </select>
-
                 <form role="form"
                     action="{{ route('movies.destroy', $movie) }}"
                     method="POST"
@@ -41,7 +68,6 @@ $('select').select2();
                         Delete
                     </button>
                 </form>
-
             </div>
         </div>
         @endcan
