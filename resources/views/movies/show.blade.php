@@ -35,16 +35,6 @@
                 </div>
             </div>
 
-            @can('update', $movie)
-            <div class="panel panel-default">
-                <div class="panel-body flex-container">
-                    <a href="{{ route('movies.edit', $movie) }}" class="btn btn-warning">
-                        Edit
-                    </a>
-                </div>
-            </div>
-            @endcan
-
         </div>
     </div>
 </div>
