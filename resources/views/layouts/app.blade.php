@@ -13,6 +13,10 @@
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet"
+        href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css"
+        integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU"
+        crossorigin="anonymous">
 
     <!-- Scripts -->
     <script>
@@ -45,18 +49,31 @@
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav hidden-md hidden-lg">
-                        @include('partials.crud-nav')
+                    <ul class="nav navbar-nav">
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
+
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
+
+                            @unless(empty($create))
+                            @can('create', $create['class'])
+                            <li>
+                                <a id="{{ $create['id'] }}"
+                                    href="{{ $create['route'] }}">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            @endcan
+                            @endunless
+
                             <li><a href="{{ route('home') }}">Home</a></li>
+
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -81,12 +98,6 @@
                     </ul>
                 </div>
             </div>
-        </nav>
-
-        <nav class="hidden-print hidden-sm hidden-xs affix">
-            <ul class="nav">
-                @include('partials.crud-nav')
-            </ul>
         </nav>
 
         @yield('content')

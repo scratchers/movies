@@ -22,6 +22,7 @@ class MovieController extends Controller
         $this->middleware('auth', ['except' => ['index','show']]);
 
         View::share('create', [
+            'id'    => 'link-create-movie',
             'class' => Movie::class,
             'route' => route('movies.new'),
         ]);
@@ -132,10 +133,6 @@ class MovieController extends Controller
 
         return view('movies.show', [
             'movie' => $movie,
-            'edit' => [
-                'class' => Movie::class,
-                'route' => route('movies.edit', $movie),
-            ],
         ]);
     }
 
@@ -156,11 +153,6 @@ class MovieController extends Controller
             'route'  => route('movies.update', $movie),
             'method' => method_field('PUT'),
             'groups' => $groups,
-            'edit' => [
-                'class' => Movie::class,
-                'route' => route('movies.show', $movie),
-                'text'  => 'Cancel',
-            ]
         ];
 
         return view('movies.edit', $data);
