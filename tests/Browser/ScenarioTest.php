@@ -42,7 +42,7 @@ class ScenarioTest extends DuskTestCase
                     ->press('Login')
                     ->assertPathIs('/movies')
                     ->assertDontSee('film')
-                    ->clickLink('Create New Movie')
+                    ->clickLink('Create')
                     ->assertPathIs('/movies/new')
                     ->press('Submit')
                     ->assertPathIs('/movies/create')
@@ -60,7 +60,7 @@ class ScenarioTest extends DuskTestCase
     {
         $this->browse(function ($browser) {
             $browser->visit('/movies')
-                    ->clickLink('Create New Movie')
+                    ->clickLink('Create')
                     ->assertPathIs('/movies/new')
                     ->press('Submit')
                     ->assertPathIs('/movies/create')
