@@ -9,7 +9,7 @@
 
         @can('delete', $group)
         <div class="panel panel-default">
-            <div class="panel-body">
+            <div class="panel-body flex-container">
                 <form role="form"
                     action="{{ route('groups.destroy', $group) }}"
                     method="POST"

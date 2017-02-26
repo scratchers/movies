@@ -5,7 +5,7 @@
 
     @can('create', App\Movie::class)
     <div class="panel panel-default">
-        <div class="panel-body">
+        <div class="panel-body flex-container">
             <a href="{{ route('movies.new') }}" class="btn btn-primary">
                 Create New Movie
             </a>
@@ -17,7 +17,7 @@
         @foreach ($movies as $movie)
             <div class="col-xs-12 col-sm-6 col-md-3">
                 <p style="word-wrap: break-word">
-                    <a href="{{ URL::route('movies.show', $movie) }}">
+                    <a id="link-movie-{{ $movie->id }}" href="{{ URL::route('movies.show', $movie) }}">
                         {{ $movie->basename }}
                     </a>
                 </p>

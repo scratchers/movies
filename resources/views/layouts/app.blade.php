@@ -8,10 +8,11 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Movies') }}</title>
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet" />
 
     <!-- Scripts -->
     <script>
@@ -19,6 +20,8 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+
+    @yield('head')
 </head>
 <body>
     <div id="app">
@@ -84,5 +87,12 @@
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+
+    <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+
+    @yield('scripts')
 </body>
 </html>

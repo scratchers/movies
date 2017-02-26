@@ -9,18 +9,35 @@
                 <div class="panel-heading">{{ $movie->basename }}</div>
                 <div class="panel-body">
 
+                <div class="row">
                     <label for="filename" class="col-md-2 control-label">Filename</label>
 
                     <div class="col-md-10">
-                        <input type="text" class="form-control" name="filename" value="{{ $movie->filename }}" readonly>
+                        {{ $movie->filename }}
                     </div>
+                </div>
+
+                <div class="row">
+                    <label for="groups" class="col-md-2 control-label">
+                        Groups
+                    </label>
+                    <div class="col-md-10">
+                        <ul>
+                            @foreach($movie->groups as $group)
+                            <li id="group-{{ $group->id }}">
+                                {{ $group->name }}
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
 
                 </div>
             </div>
 
             @can('update', $movie)
             <div class="panel panel-default">
-                <div class="panel-body">
+                <div class="panel-body flex-container">
                     <a href="{{ route('movies.edit', $movie) }}" class="btn btn-warning">
                         Edit
                     </a>
