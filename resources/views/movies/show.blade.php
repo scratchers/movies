@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
     <h1>{{ $movie->basename }}</h1>
 
     <div class="row">
@@ -10,13 +9,6 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     {{ $movie->basename }}
-
-                    @can('update', Movie::class)
-                    <a  id="link-edit-movie-{{ $movie->id }}"
-                        href="{{ route('movies.edit', $movie) }}">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                    </a>
-                    @endcan
                 </div>
                 <div class="panel-body">
 
@@ -48,5 +40,4 @@
 
         </div>
     </div>
-</div>
 @endsection

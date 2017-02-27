@@ -61,17 +61,6 @@
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
 
-                            @unless(empty($create))
-                            @can('create', $create['class'])
-                            <li>
-                                <a id="{{ $create['id'] }}"
-                                    href="{{ $create['route'] }}">
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                </a>
-                            </li>
-                            @endcan
-                            @endunless
-
                             <li><a href="{{ route('home') }}">Home</a></li>
 
                             <li class="dropdown">
@@ -100,7 +89,35 @@
             </div>
         </nav>
 
-        @yield('content')
+<div class="container">
+
+    <ul class="nav admin-edit-nav pull-right">
+        @unless(empty($create))
+        @can('create', $create['class'])
+        <li>
+            <a id="{{ $create['id'] }}"
+                href="{{ $create['route'] }}">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </a>
+        </li>
+        @endcan
+        @endunless
+
+        @unless(empty($edit))
+        @can('update', $edit['class'])
+        <li>
+            <a  id="{{ $edit['id'] }}"
+                href="{{ $edit['route'] }}">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+        </li>
+        @endcan
+        @endunless
+    </ul>
+
+    @yield('content')
+
+</div>
 
     </div>
 
