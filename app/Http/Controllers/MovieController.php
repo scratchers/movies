@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Policies\MoviePolicy;
 use Illuminate\Support\Facades\Auth;
 use App\Group;
+use View;
 
 class MovieController extends Controller
 {
@@ -19,6 +20,12 @@ class MovieController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['index','show']]);
+
+        View::share('create', [
+            'id'    => 'link-create-movie',
+            'class' => Movie::class,
+            'route' => route('movies.new'),
+        ]);
     }
 
     /**
@@ -124,7 +131,14 @@ class MovieController extends Controller
             $this->authorize('view', $movie);
         }
 
-        return view('movies.show', ['movie' => $movie]);
+        return view('movies.show', [
+            'movie' => $movie,
+            'edit' => [
+                'id'    => "link-edit-movie-{$movie->id}",
+                'class' => Movie::class,
+                'route' => route('movies.edit', $movie),
+            ]
+        ]);
     }
 
     /**
@@ -144,6 +158,12 @@ class MovieController extends Controller
             'route'  => route('movies.update', $movie),
             'method' => method_field('PUT'),
             'groups' => $groups,
+            'edit' => [
+                'id'    => "link-show-movie-{$movie->id}",
+                'class' => Movie::class,
+                'route' => route('movies.show', $movie),
+                'text'  => 'Cancel',
+            ]
         ];
 
         return view('movies.edit', $data);

@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+<h1>{{ $movie->basename }}</h1>
 
-        @include('movies.partials.form')
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
 
-        </div>
+    @include('movies.partials.form')
+
     </div>
 </div>
 @endsection

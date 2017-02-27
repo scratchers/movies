@@ -1,12 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+    <h1>{{ $movie->basename }}</h1>
+
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
 
             <div class="panel panel-default">
-                <div class="panel-heading">{{ $movie->basename }}</div>
+                <div class="panel-heading">
+                    {{ $movie->basename }}
+                </div>
                 <div class="panel-body">
 
                 <div class="row">
@@ -35,17 +38,6 @@
                 </div>
             </div>
 
-            @can('update', $movie)
-            <div class="panel panel-default">
-                <div class="panel-body flex-container">
-                    <a href="{{ route('movies.edit', $movie) }}" class="btn btn-warning">
-                        Edit
-                    </a>
-                </div>
-            </div>
-            @endcan
-
         </div>
     </div>
-</div>
 @endsection

@@ -13,80 +13,80 @@ $('select').select2();
 @endsection()
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+<h1>{{ $movie->basename }}</h1>
 
-        @include('movies.partials.form')
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
 
-        @can('delete', $movie)
-        <div class="panel panel-default">
-            <div class="panel-heading">Groups</div>
-            <div class="panel-body">
+    @include('movies.partials.form')
 
-                <form role="form"
-                    action="{{ route('movies.group', $movie) }}"
-                    method="POST"
-                    class="form-horizontal">
-                    {{ csrf_field() }}
-                    {{ method_field('PUT') }}
+    @can('delete', $movie)
+    <div class="panel panel-default">
+        <div class="panel-heading">Groups</div>
+        <div class="panel-body">
 
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <select name="groups[]"
-                                class="js-example-basic-multiple"
-                                multiple="multiple"
-                                style="width:100%">
+            <form role="form"
+                action="{{ route('movies.group', $movie) }}"
+                method="POST"
+                class="form-horizontal">
+                {{ csrf_field() }}
+                {{ method_field('PUT') }}
 
-                                @foreach($movie->groups as $group)
-                                <option id="group-{{ $group->id }}"
-                                    value="{{ $group->id }}" selected="true">
-                                    {{ $group->name }}
-                                </option>
-                                @endforeach
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <select name="groups[]"
+                            class="js-example-basic-multiple"
+                            multiple="multiple"
+                            style="width:100%">
 
-                                @foreach($groups as $group)
-                                <option id="group-{{ $group->id }}"
-                                    value="{{ $group->id }}">
-                                    {{ $group->name }}
-                                </option>
-                                @endforeach
+                            @foreach($movie->groups as $group)
+                            <option id="group-{{ $group->id }}"
+                                value="{{ $group->id }}" selected="true">
+                                {{ $group->name }}
+                            </option>
+                            @endforeach
 
-                            </select>
-                        </div>
+                            @foreach($groups as $group)
+                            <option id="group-{{ $group->id }}"
+                                value="{{ $group->id }}">
+                                {{ $group->name }}
+                            </option>
+                            @endforeach
+
+                        </select>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <button type="submit" class="btn btn-warning">
-                                Save
-                            </button>
-                        </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-warning">
+                            Save
+                        </button>
                     </div>
-                </form>
-
-            </div>
-        </div>
-
-        <div class="panel panel-default">
-            <div class="panel-body flex-container">
-                <form role="form"
-                    action="{{ route('movies.destroy', $movie) }}"
-                    method="POST"
-                    class="form-horizontal"
-                >
-                    {{ csrf_field() }}
-                    {{ method_field('DELETE') }}
-
-                    <button type="submit" class="btn btn-danger">
-                        Delete
-                    </button>
-                </form>
-            </div>
-        </div>
-        @endcan
+                </div>
+            </form>
 
         </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body flex-container">
+            <form role="form"
+                action="{{ route('movies.destroy', $movie) }}"
+                method="POST"
+                class="form-horizontal"
+            >
+                {{ csrf_field() }}
+                {{ method_field('DELETE') }}
+
+                <button type="submit" class="btn btn-danger">
+                    Delete
+                </button>
+            </form>
+        </div>
+    </div>
+    @endcan
+
     </div>
 </div>
 @endsection
