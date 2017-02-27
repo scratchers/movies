@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+<h1>Create New Group</h1>
 
-        @include('groups.partials.form')
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
 
-        </div>
+    @include('groups.partials.form')
+
     </div>
 </div>
 @endsection

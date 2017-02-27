@@ -5,9 +5,24 @@ namespace App\Http\Controllers;
 use App\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use View;
 
 class GroupController extends Controller
 {
+    /**
+     * Creates Group Controller with view data.
+     *
+     * @return GroupController
+     */
+    public function __construct()
+    {
+        View::share('create', [
+            'id'    => 'link-create-group',
+            'class' => Group::class,
+            'route' => route('groups.create'),
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -70,7 +85,14 @@ class GroupController extends Controller
     {
         $this->authorize('view', $group);
 
-        return view('groups.show', ['group' => $group]);
+        return view('groups.show', [
+            'group' => $group,
+            'edit' => [
+                'id'    => "link-edit-group-{$group->id}",
+                'class' => Group::class,
+                'route' => route('groups.edit', $group),
+            ],
+        ]);
     }
 
     /**
@@ -87,6 +109,12 @@ class GroupController extends Controller
             'group'  => $group,
             'route'  => route('groups.update', $group),
             'method' => method_field('PUT'),
+            'edit' => [
+                'id'    => "link-show-group-{$group->id}",
+                'class' => Group::class,
+                'route' => route('groups.show', $group),
+                'text'  => 'Cancel',
+            ],
         ];
 
         return view('groups.edit', $data);
