@@ -29,3 +29,5 @@ Route::name('movies.addnew')
 Route::name('movies.group')
     ->match(['put', 'patch'], '/movies/{movie}/group', 'MovieController@group');
 Route::resource('movies', 'MovieController');
+
+Route::resource('tags', 'TagController');

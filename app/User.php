@@ -35,6 +35,15 @@ class User extends Authenticatable
         return $this->belongsToMany(Group::class);
     }
 
+
+    /**
+     * Tags created by User.
+     */
+    public function tags()
+    {
+        return $this->hasMany(Tag::class);
+    }
+
     /**
      * Whether or not the user is a member of the admin group.
      */
