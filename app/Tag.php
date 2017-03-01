@@ -11,6 +11,7 @@ class Tag extends Model
 
     protected $fillable = [
         'name',
+        'created_by_user_id',
     ];
 
     /**
@@ -18,6 +19,6 @@ class Tag extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'created_by_user_id');
     }
 }

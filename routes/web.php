@@ -20,6 +20,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function(){
     Route::resource('groups', 'GroupController');
     Route::name('home')->get('/home', 'HomeController@index');
+    Route::resource('tags', 'TagController');
 });
 
 Route::name('movies.new')
@@ -30,4 +31,3 @@ Route::name('movies.group')
     ->match(['put', 'patch'], '/movies/{movie}/group', 'MovieController@group');
 Route::resource('movies', 'MovieController');
 
-Route::resource('tags', 'TagController');

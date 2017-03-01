@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Tag;
 use Illuminate\Http\Request;
+use Auth;
 
 class TagController extends Controller
 {
@@ -14,7 +15,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        return Tag::all();
+        return Tag::with('user')->get();
     }
 
     /**
@@ -38,6 +39,7 @@ class TagController extends Controller
         foreach ( $request->input('tags') as $tag ) {
             Tag::updateOrCreate([
                 'name' => $tag,
+                'created_by_user_id' => Auth::user()->id,
             ]);
         }
         return redirect(route('tags.index'));
