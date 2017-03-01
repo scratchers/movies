@@ -14,7 +14,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        return Tag::all();
     }
 
     /**
@@ -24,7 +24,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return view('tags.create');
     }
 
     /**
@@ -35,7 +35,12 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        foreach ( $request->input('tags') as $tag ) {
+            Tag::updateOrCreate([
+                'name' => $tag,
+            ]);
+        }
+        return redirect(route('tags.index'));
     }
 
     /**
@@ -46,7 +51,7 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
-        //
+        return $tag;
     }
 
     /**
