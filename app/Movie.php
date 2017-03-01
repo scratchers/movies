@@ -40,6 +40,14 @@ class Movie extends Model
         return !$this->groups->isEmpty();
     }
 
+    /**
+     * Common and personal tags for the movie.
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
     public function __get($key)
     {
         if ($key === 'basename') {

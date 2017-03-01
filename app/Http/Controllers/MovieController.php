@@ -9,6 +9,7 @@ use App\Policies\MoviePolicy;
 use Illuminate\Support\Facades\Auth;
 use App\Group;
 use View;
+use App\Tag;
 
 class MovieController extends Controller
 {
@@ -131,13 +132,16 @@ class MovieController extends Controller
             $this->authorize('view', $movie);
         }
 
+        $tags = Tag::common()->get()->diff($movie->tags);
+
         return view('movies.show', [
             'movie' => $movie,
             'edit' => [
                 'id'    => "link-edit-movie-{$movie->id}",
                 'class' => $movie,
                 'route' => route('movies.edit', $movie),
-            ]
+            ],
+            'tags' => $tags,
         ]);
     }
 

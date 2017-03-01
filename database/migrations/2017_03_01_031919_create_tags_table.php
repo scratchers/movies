@@ -18,12 +18,16 @@ class CreateTagsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            // not unique because users may have tags of the same name
+            // and we don't want to share because they may be renamed
             $table->string('name');
 
             $table->integer('created_by_user_id')->unsigned()->nullable();
             $table->foreign('created_by_user_id')
                 ->references('id')
                 ->on('users');
+
+            $table->unique(['name', 'created_by_user_id']);
         });
     }
 

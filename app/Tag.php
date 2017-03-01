@@ -24,6 +24,14 @@ class Tag extends Model
     }
 
     /**
+     * The movies that have been tagged by this.
+     */
+    public function movies()
+    {
+        return $this->belongsToMany(Movie::class);
+    }
+
+    /**
      * Scope a query to only include common tags and the user's tags.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
