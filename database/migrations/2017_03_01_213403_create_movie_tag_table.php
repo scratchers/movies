@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGroupMovieTable extends Migration
+class CreateMovieTagTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,9 @@ class CreateGroupMovieTable extends Migration
      */
     public function up()
     {
-        Schema::create('group_movie', function (Blueprint $table) {
+        Schema::create('movie_tag', function (Blueprint $table) {
+            $table->timestamps();
             $table->softDeletes();
-
-            $table->integer('group_id')->unsigned();
-            $table->foreign('group_id')
-                ->references('id')
-                ->on('groups')
-                ->onDelete('cascade');
 
             $table->integer('movie_id')->unsigned();
             $table->foreign('movie_id')
@@ -28,8 +23,14 @@ class CreateGroupMovieTable extends Migration
                 ->on('movies')
                 ->onDelete('cascade');
 
-            $table->primary(['group_id', 'movie_id']);
-        });
+            $table->integer('tag_id')->unsigned();
+            $table->foreign('tag_id')
+                ->references('id')
+                ->on('tags')
+                ->onDelete('cascade');
+
+            $table->primary(['tag_id', 'movie_id']);
+});
     }
 
     /**
@@ -39,6 +40,6 @@ class CreateGroupMovieTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('group_movie');
+        Schema::dropIfExists('movie_tag');
     }
 }

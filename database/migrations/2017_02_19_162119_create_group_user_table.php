@@ -27,6 +27,8 @@ class CreateGroupUserTable extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
+
+            $table->primary(['group_id', 'user_id']);
         });
     }
 
