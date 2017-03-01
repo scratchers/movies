@@ -135,7 +135,7 @@ class MovieController extends Controller
             'movie' => $movie,
             'edit' => [
                 'id'    => "link-edit-movie-{$movie->id}",
-                'class' => Movie::class,
+                'class' => $movie,
                 'route' => route('movies.edit', $movie),
             ]
         ]);
@@ -160,7 +160,7 @@ class MovieController extends Controller
             'groups' => $groups,
             'edit' => [
                 'id'    => "link-show-movie-{$movie->id}",
-                'class' => Movie::class,
+                'class' => $movie,
                 'route' => route('movies.show', $movie),
                 'text'  => 'Cancel',
             ]
