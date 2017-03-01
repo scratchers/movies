@@ -15,7 +15,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        return Tag::with('user')->get();
+        return Tag::common()->with('user')->get();
     }
 
     /**
