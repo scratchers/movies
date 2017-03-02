@@ -17,7 +17,7 @@ Apache users **note** that there is an included `.htaccess` file
 which contains `Options +Indexes` to allow index browsing.
 You can explicitly forbid this override in the virtual host configuration.
 
-## Access Control
+## Groups and Access Control
 
 The system has an admin group out of the box with some policies:
 
@@ -62,26 +62,33 @@ Then find your user, the `admin` group, and attach it to the user's groups.
 >>> $jeff->groups()->attach($admin)
 ```
 
-## Tags and Ratings
-
-Tags belonging to no one are attachable by anyone:
-
-* watched
-* blocked
-* starred
+## Tags
 
 Users can create their own custom tags and attach them to movies:
 
 * summer-sports
 * LOL
 
-Tags attached to movies by no one are visible to everyone.
-These are global movie tags, such as genres:
+Out of the box, users are seeded with a couple common custom tags:
+
+* watched
+* blocked
+* starred
+
+These, like all tags, can be renamed or deleted.
+
+## Genres
+
+Administrators can create and attach genres to movies visible to everyone.
+These are like global movie tags, such as:
 
 * drama
 * comedy
 * animated
 * sci-fi
+* wonky-whateverness
+
+## Ratings
 
 Users can rate movies on an integer scale of 0-100.
 
