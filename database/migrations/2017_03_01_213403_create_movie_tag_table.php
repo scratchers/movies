@@ -15,7 +15,6 @@ class CreateMovieTagTable extends Migration
     {
         Schema::create('movie_tag', function (Blueprint $table) {
             $table->timestamps();
-            $table->softDeletes();
 
             $table->integer('movie_id')->unsigned();
             $table->foreign('movie_id')

@@ -14,7 +14,6 @@ class CreateGroupMovieTable extends Migration
     public function up()
     {
         Schema::create('group_movie', function (Blueprint $table) {
-            $table->softDeletes();
 
             $table->integer('group_id')->unsigned();
             $table->foreign('group_id')
