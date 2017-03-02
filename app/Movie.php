@@ -56,4 +56,9 @@ class Movie extends Model
 
         return parent::__get($key);
     }
+
+    public function currentUserTags()
+    {
+        return $this->tags->intersect(Tag::currentUserTags()->get());
+    }
 }

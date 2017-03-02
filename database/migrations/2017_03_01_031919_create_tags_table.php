@@ -22,7 +22,7 @@ class CreateTagsTable extends Migration
             // and we don't want to share because they may be renamed
             $table->string('name');
 
-            $table->integer('created_by_user_id')->unsigned()->nullable();
+            $table->integer('created_by_user_id')->unsigned();
             $table->foreign('created_by_user_id')
                 ->references('id')
                 ->on('users');

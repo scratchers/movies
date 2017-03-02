@@ -132,17 +132,22 @@ class MovieController extends Controller
             $this->authorize('view', $movie);
         }
 
-        $tags = Tag::common()->get()->diff($movie->tags);
-
-        return view('movies.show', [
+        $data = [
             'movie' => $movie,
             'edit' => [
                 'id'    => "link-edit-movie-{$movie->id}",
                 'class' => $movie,
                 'route' => route('movies.edit', $movie),
             ],
-            'tags' => $tags,
-        ]);
+        ];
+
+        if ( Auth::check() ) {
+            $tags = Tag::currentUserTags()->get();
+            $data['movieTags'] = $movie->tags->intersect($tags);
+            $data['tags'] = $tags->diff($data['movieTags']);
+        }
+
+        return view('movies.show', $data);
     }
 
     /**

@@ -32,19 +32,13 @@ class Tag extends Model
     }
 
     /**
-     * Scope a query to only include common tags and the user's tags.
+     * Scope a query to only include current user's tags.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeCommon($query)
+    public function scopeCurrentUserTags($query)
     {
-        $query->whereNull('created_by_user_id');
-
-        if ( Auth::check() ) {
-            $query->orWhere('created_by_user_id', '=', Auth::user()->id);
-        }
-
-        return $query;
+        return $query->where('created_by_user_id', '=', Auth::user()->id);
     }
 }

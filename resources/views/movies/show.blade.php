@@ -15,6 +15,7 @@ $('#select-tags').select2({
         <div class="col-md-8 col-md-offset-2">
 
             <div class="panel panel-default">
+                @if ( Auth::check() )
                 <div class="panel-heading">
                     <form role="form"
                         action="{{ route('movies.tags', $movie) }}"
@@ -22,15 +23,14 @@ $('#select-tags').select2({
                         class="form-horizontal">
                         {{ csrf_field() }}
 
-                        @if ( Auth::check() )
                             <button type="submit" class="btn btn-default pull-right">
                                 Save
                             </button>
-                        @endif
 
                         @include('tags.partials.select')
                     </form>
                 </div>
+                @endif
 
                 <div class="panel-body">
                     <div class="row">
