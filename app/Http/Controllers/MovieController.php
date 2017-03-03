@@ -224,4 +224,24 @@ class MovieController extends Controller
 
         return redirect(route('movies.show', ['movie' => $movie]));
     }
+
+    /**
+     * Synchronize a user's movie tags.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Movie  $movie
+     * @return \Illuminate\Http\Response
+     */
+    public function tags(Request $request, Movie $movie)
+    {
+        $tags = Auth::User()->tags->find($request->input('tags'));
+
+        $adds = $tags->diff($movie->tags);
+
+        // TODO: delete movies
+
+        $movie->tags()->attach($adds);
+
+        return redirect(route('movies.show', ['movie' => $movie]));
+    }
 }

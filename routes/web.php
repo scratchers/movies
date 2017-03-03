@@ -23,11 +23,13 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('tags', 'TagController');
 });
 
+// auth middleware applied selectively in MovieController constructor
 Route::name('movies.new')
     ->get('/movies/new', 'MovieController@new');
 Route::name('movies.addnew')
     ->post('/movies/create', 'MovieController@create');
 Route::name('movies.group')
     ->match(['put', 'patch'], '/movies/{movie}/group', 'MovieController@group');
+Route::name('movies.tags')
+    ->post('/movies/{movie}/tags', 'MovieController@tags');
 Route::resource('movies', 'MovieController');
-
