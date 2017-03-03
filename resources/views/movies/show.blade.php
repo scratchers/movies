@@ -23,11 +23,18 @@ $('#select-tags').select2({
                         class="form-horizontal">
                         {{ csrf_field() }}
 
-                            <button type="submit" class="btn btn-default pull-right">
-                                Save
-                            </button>
+                        <div class="flex-container">
+                            <div style="width:100%">
+                                @include('tags.partials.select')
+                            </div>
 
-                        @include('tags.partials.select')
+                            <div>
+                                <button type="submit" class="btn btn-default">
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+
                     </form>
                 </div>
                 @endif
