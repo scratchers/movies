@@ -142,9 +142,7 @@ class MovieController extends Controller
         ];
 
         if ( Auth::check() ) {
-            $tags = Tag::currentUserTags()->get();
-            $data['movieTags'] = $movie->tags->intersect($tags);
-            $data['tags'] = $tags->diff($data['movieTags']);
+            $data['tags'] = Auth::User()->tags->diff($movie->tags);
         }
 
         return view('movies.show', $data);

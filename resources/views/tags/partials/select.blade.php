@@ -4,8 +4,8 @@
     multiple="multiple"
     style="width:100%">
 
-    @unless( empty($movieTags) )
-    @foreach($movieTags as $tag)
+    @unless( empty($movie) )
+    @foreach($movie->tags as $tag)
     <option id="tag-{{ $tag->id }}" value="{{ $tag->id }}" selected="true">
         {{ $tag->name }}
     </option>

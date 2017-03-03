@@ -41,7 +41,7 @@ class User extends Authenticatable
      */
     public function tags()
     {
-        return $this->hasMany(Tag::class);
+        return $this->hasMany(Tag::class, 'created_by_user_id');
     }
 
     /**
