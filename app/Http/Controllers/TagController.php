@@ -6,6 +6,7 @@ use App\Tag;
 use Illuminate\Http\Request;
 use Auth;
 use View;
+use App\Http\Requests\CreateTag;
 
 class TagController extends Controller
 {
@@ -53,7 +54,7 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateTag $request)
     {
         $tag = new Tag([
             'name' => $request->input('name'),

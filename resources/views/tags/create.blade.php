@@ -27,7 +27,13 @@ $('#select-tags').select2({
                     <label for="name" class="col-md-2 control-label">Name</label>
 
                     <div class="col-md-10">
-                        <input type="text" class="form-control" name="name" required>
+                        <input type="text" class="form-control" name="name" value="{{ old('name') }}" required>
+                        @if ( $errors->has('name') )
+                            <div class="alert alert-danger">
+                                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                {{ $errors->first('name') }}
+                            </div>
+                        @endif
                     </div>
                 </div>
 
