@@ -5,9 +5,24 @@ namespace App\Http\Controllers;
 use App\Tag;
 use Illuminate\Http\Request;
 use Auth;
+use View;
 
 class TagController extends Controller
 {
+    /**
+     * Creates Tag Controller.
+     *
+     * @return TagController
+     */
+    public function __construct()
+    {
+        View::share('create', [
+            'id'    => 'link-create-tag',
+            'class' => Tag::class,
+            'route' => route('tags.create'),
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *

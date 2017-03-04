@@ -71,6 +71,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ route('tags.index') }}">Tags</a></li>
                                     <li><a href="{{ route('groups.index') }}">Groups</a></li>
                                     <li>
                                         <a href="{{ route('logout') }}"
@@ -85,6 +86,7 @@
                                     </li>
                                 </ul>
                             </li>
+
                         @endif
                     </ul>
                 </div>
