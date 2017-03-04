@@ -17,6 +17,8 @@ class TagController extends Controller
      */
     public function __construct()
     {
+        $this->authorizeResource(Tag::class);
+
         View::share('create', [
             'id'    => 'link-create-tag',
             'class' => Tag::class,
@@ -73,7 +75,16 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
-        return $tag;
+        $data = [
+            'tag' => $tag,
+            'edit' => [
+                'id'     => "link-edit-tag-{$tag->id}",
+                'object' => $tag,
+                'route'  => route('tags.edit', $tag),
+            ],
+        ];
+
+        return view('tags.show', $data);
     }
 
     /**

@@ -135,9 +135,9 @@ class MovieController extends Controller
         $data = [
             'movie' => $movie,
             'edit' => [
-                'id'    => "link-edit-movie-{$movie->id}",
-                'class' => $movie,
-                'route' => route('movies.edit', $movie),
+                'id'     => "link-edit-movie-{$movie->id}",
+                'object' => $movie,
+                'route'  => route('movies.edit', $movie),
             ],
         ];
 
@@ -169,10 +169,10 @@ class MovieController extends Controller
             'method' => method_field('PUT'),
             'groups' => $groups,
             'edit' => [
-                'id'    => "link-show-movie-{$movie->id}",
-                'class' => $movie,
-                'route' => route('movies.show', $movie),
-                'text'  => 'Cancel',
+                'id'     => "link-show-movie-{$movie->id}",
+                'object' => $movie,
+                'route'  => route('movies.show', $movie),
+                'text'   => 'Cancel',
             ]
         ];
 

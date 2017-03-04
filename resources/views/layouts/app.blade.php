@@ -108,7 +108,7 @@
         @endunless
 
         @unless(empty($edit))
-        @can('update', $edit['class'])
+        @can('update', $edit['object'])
         <li>
             <a  id="{{ $edit['id'] }}"
                 href="{{ $edit['route'] }}">
