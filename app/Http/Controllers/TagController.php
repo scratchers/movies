@@ -15,7 +15,11 @@ class TagController extends Controller
      */
     public function index()
     {
-        return Auth::User()->tags;
+        $data = [
+            'tags' => Auth::User()->tags,
+        ];
+
+        return view('tags.index', $data);
     }
 
     /**
