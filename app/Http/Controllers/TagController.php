@@ -47,7 +47,11 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view('tags.create');
+        $data = [
+            'route'  => route('tags.store'),
+        ];
+
+        return view('tags.create', $data);
     }
 
     /**
@@ -95,7 +99,19 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        //
+        $data = [
+            'tag'    => $tag,
+            'route'  => route('tags.update', $tag),
+            'method' => method_field('PUT'),
+            'edit' => [
+                'id'     => "link-show-tag-{$tag->id}",
+                'object' => $tag,
+                'route'  => route('tags.show', $tag),
+                'text'   => 'Cancel',
+            ],
+        ];
+
+        return view('tags.edit', $data);
     }
 
     /**
@@ -107,7 +123,9 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
-        //
+        $tag->update($request->all());
+
+        return view('tags.show', ['tag' => $tag]);
     }
 
     /**

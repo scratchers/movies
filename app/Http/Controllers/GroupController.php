@@ -88,9 +88,9 @@ class GroupController extends Controller
         return view('groups.show', [
             'group' => $group,
             'edit' => [
-                'id'    => "link-edit-group-{$group->id}",
-                'class' => $group,
-                'route' => route('groups.edit', $group),
+                'id'     => "link-edit-group-{$group->id}",
+                'object' => $group,
+                'route'  => route('groups.edit', $group),
             ],
         ]);
     }
@@ -110,10 +110,10 @@ class GroupController extends Controller
             'route'  => route('groups.update', $group),
             'method' => method_field('PUT'),
             'edit' => [
-                'id'    => "link-show-group-{$group->id}",
-                'class' => $group,
-                'route' => route('groups.show', $group),
-                'text'  => 'Cancel',
+                'id'     => "link-show-group-{$group->id}",
+                'object' => $group,
+                'route'  => route('groups.show', $group),
+                'text'   => 'Cancel',
             ],
         ];
 

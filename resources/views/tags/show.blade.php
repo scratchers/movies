@@ -7,7 +7,6 @@
     <div class="col-md-8 col-md-offset-2">
 
         <div class="panel panel-default">
-            <div class="panel-heading">{{ $tag->name }}</div>
             <div class="panel-body">
 
                 <label for="name" class="col-md-2 control-label">Name</label>
