@@ -142,7 +142,10 @@ class MovieController extends Controller
         ];
 
         if ( Auth::check() ) {
-            $data['tags'] = Auth::User()->tags->diff($movie->tags);
+            $tags = Auth::User()->tags;
+            $data['tags']  = $tags->diff($movie->tags);
+            $movie->tags   = $movie->tags->intersect($tags);
+            $data['movie'] = $movie;
         }
 
         return view('movies.show', $data);
@@ -234,13 +237,27 @@ class MovieController extends Controller
      */
     public function tags(Request $request, Movie $movie)
     {
-        $allTags = $request->user()->tags;
+        $user = $request->user();
 
-        $nowTags = $allTags->find($request->input('tags'));
+        $tags = collect($request->input('tags'));
+
+        $tags->transform(function($tag) use ($user){
+            if ( !is_numeric($tag) ) {
+                return (Tag::firstOrCreate([
+                    'name' => $tag,
+                    'created_by_user_id' => $user->id,
+                ]))->id;
+            }
+            return $tag;
+        });
+
+        $allTags = $user->tags;
+
+        $tags = $allTags->find($tags->toArray());
 
         $movie->tags()->detach($allTags);
 
-        $movie->tags()->attach($nowTags);
+        $movie->tags()->attach($tags);
 
         return redirect(route('movies.show', compact('movie')));
     }
