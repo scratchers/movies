@@ -234,14 +234,14 @@ class MovieController extends Controller
      */
     public function tags(Request $request, Movie $movie)
     {
-        $tags = Auth::User()->tags->find($request->input('tags'));
+        $allTags = $request->user()->tags;
 
-        $adds = $tags->diff($movie->tags);
+        $nowTags = $allTags->find($request->input('tags'));
 
-        // TODO: delete movies
+        $movie->tags()->detach($allTags);
 
-        $movie->tags()->attach($adds);
+        $movie->tags()->attach($nowTags);
 
-        return redirect(route('movies.show', ['movie' => $movie]));
+        return redirect(route('movies.show', compact('movie')));
     }
 }

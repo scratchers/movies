@@ -15,6 +15,8 @@ $('#select-tags').select2({
         <div class="col-md-8 col-md-offset-2">
 
             <div class="panel panel-default">
+
+                {{-- tags --}}
                 @if ( Auth::check() )
                 <div class="panel-heading">
                     <form role="form"
