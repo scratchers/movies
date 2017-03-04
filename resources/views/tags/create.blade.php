@@ -23,11 +23,11 @@ $('#select-tags').select2({
                 class="form-horizontal">
                 {{ csrf_field() }}
 
-                <div class="form-group">
-                    <div class="col-md-12">
+                <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                    <label for="name" class="col-md-2 control-label">Name</label>
 
-                        @include('tags.partials.select')
-
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" name="name" required>
                     </div>
                 </div>
 

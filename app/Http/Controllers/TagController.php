@@ -40,13 +40,13 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        foreach ( $request->input('tags') as $tag ) {
-            Tag::updateOrCreate([
-                'name' => $tag,
-                'created_by_user_id' => Auth::user()->id,
-            ]);
-        }
-        return redirect(route('tags.index'));
+        $tag = new Tag([
+            'name' => $request->input('name'),
+        ]);
+
+        $request->user()->tags()->save($tag);
+
+        return redirect(route('tags.show', $tag));
     }
 
     /**
