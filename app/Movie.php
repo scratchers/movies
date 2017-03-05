@@ -84,9 +84,14 @@ class Movie extends Model
      */
     public function scopeTagged($query, $tags)
     {
+        $count = count($tags);
+
         return $query
             ->leftJoin('movie_tag', 'movies.id', '=', 'movie_tag.movie_id')
             ->whereIn('movie_tag.tag_id', $tags)
+            ->groupBy('movies.id')
+            ->havingRaw("COUNT(DISTINCT movie_tag.tag_id) = $count")
+            // thanks Gordon http://stackoverflow.com/a/27209368/4233593
         ;
     }
 
