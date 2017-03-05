@@ -36,23 +36,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-
-        $movies = Movie::with('groups')->get()->filter(function ($movie, $key) use ($user) {
-            if ( $movie->groups->isEmpty() ) {
-                return true;
-            }
-
-            if ( is_null($user) ) {
-                return false;
-            }
-
-            if ( $user->isAdmin() ) {
-                return true;
-            }
-
-            return (new MoviePolicy)->view($user, $movie);
-        });
+        $movies = Movie::viewable()->get();
 
         return view('movies.index', ['movies' => $movies]);
     }

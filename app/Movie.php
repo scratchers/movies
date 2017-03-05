@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Auth;
 
 class Movie extends Model
 {
@@ -60,5 +61,31 @@ class Movie extends Model
     public function currentUserTags()
     {
         return $this->tags->intersect(Tag::currentUserTags()->get());
+    }
+
+    /**
+     * Scope query to only return viewable movies.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeViewable($query)
+    {
+        if ( !Auth::check() ) {
+            return $query
+                ->leftJoin('group_movie', 'movies.id', '=', 'group_movie.movie_id')
+                ->whereNull('group_movie.group_id');
+        }
+
+        if ( Auth::user()->isAdmin() ) {
+            return $query;
+        }
+
+        return $query
+            ->leftJoin('group_movie', 'movies.id', '=', 'group_movie.movie_id')
+            ->leftJoin('group_user', 'group_movie.group_id', '=', 'group_user.group_id')
+            ->whereNull('group_movie.group_id')
+            ->orWhere('group_user.user_id', Auth::user()->id)
+        ;
     }
 }
