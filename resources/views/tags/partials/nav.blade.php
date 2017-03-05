@@ -20,7 +20,11 @@
             >
 
                 @foreach(Auth::user()->tags as $tag)
-                <option id="tag-{{ $tag->id }}" value="{{ $tag->id }}">
+                <option id="tag-{{ $tag->id }}" value="{{ $tag->id }}"
+                    @if ( request()->has('tags') && in_array($tag->id, request()->tags) )
+                        selected
+                    @endif
+                >
                     {{ $tag->name }}
                 </option>
                 @endforeach
