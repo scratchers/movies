@@ -52,6 +52,7 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
+                        <li id="li-nav-tags"><a href="#" onclick="$('#nav-select-tags-div').toggle('blind'); $('#li-nav-tags').toggleClass('active'); return false;">Tags</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -92,6 +93,8 @@
                 </div>
             </div>
         </nav>
+
+    @include('tags.partials.nav')
 
 <div class="container">
 
@@ -135,6 +138,16 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
+    <script
+    src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+    integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+    crossorigin="anonymous"></script>
+
     @yield('scripts')
+
+    <script type="text/javascript">
+        $('#nav-select-tags').select2();
+    </script>
+
 </body>
 </html>

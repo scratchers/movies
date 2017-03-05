@@ -3,3 +3,12 @@
     display: flex;
     justify-content: space-between;
 }
+.navbar {
+    margin-bottom: 0px;
+}
+#nav-select-tags-div, #nav-select-tags {
+    width: 100%;
+}
+#nav-select-tags-div {
+    display: none;
+}
