@@ -34,11 +34,15 @@ class MovieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $movies = Movie::viewable()->get();
+        $movies = Movie::viewable();
 
-        return view('movies.index', ['movies' => $movies]);
+        if ( $request->has('tags') ) {
+            $movies = $movies->tagged($request->tags);
+        }
+
+        return view('movies.index', ['movies' => $movies->get()]);
     }
 
     /**

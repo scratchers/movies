@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Auth;
+use App\Scopes\MovieScope;
 
 class Movie extends Model
 {
@@ -61,6 +62,32 @@ class Movie extends Model
     public function currentUserTags()
     {
         return $this->tags->intersect(Tag::currentUserTags()->get());
+    }
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new MovieScope);
+    }
+
+    /**
+     * Scope query to only return tagged movies.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeTagged($query, $tags)
+    {
+        return $query
+            ->leftJoin('movie_tag', 'movies.id', '=', 'movie_tag.movie_id')
+            ->whereIn('movie_tag.tag_id', $tags)
+        ;
     }
 
     /**
