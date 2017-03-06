@@ -102,12 +102,14 @@ class Movie extends Model
      */
     public function scopeNotTagged($query, $tags)
     {
-        $count = count($tags);
-
         return $query
-            ->leftJoin('movie_tag', 'movies.id', '=', 'movie_tag.movie_id')
-            ->whereNotIn('movie_tag.tag_id', $tags)
-            ->orWhereNull('movie_tag.tag_id')
+            ->whereNotIn('movies.id', function($query) use ($tags){
+                $query
+                    ->select('movie_id')
+                    ->from('movie_tag')
+                    ->whereIn('tag_id', $tags)
+                ;
+            })
         ;
     }
 
