@@ -6,7 +6,7 @@
 .navbar {
     margin-bottom: 0px;
 }
-#nav-select-tags-div, #nav-select-tags {
+#nav-select-tags-div, .nav-select-tags {
     width: 100%;
 }
 #nav-select-tags-div {

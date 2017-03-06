@@ -146,7 +146,7 @@
     @yield('scripts')
 
     <script type="text/javascript">
-        $('#nav-select-tags').select2();
+        $('.nav-select-tags').select2();
     </script>
 
 </body>

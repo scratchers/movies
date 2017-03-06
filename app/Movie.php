@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Auth;
 use App\Scopes\MovieScope;
 
 class Movie extends Model
@@ -96,28 +95,32 @@ class Movie extends Model
     }
 
     /**
-     * Scope query to only return viewable movies.
+     * Scope query to only return tagged movies.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeViewable($query)
+    public function scopeNotTagged($query, $tags)
     {
-        if ( !Auth::check() ) {
-            return $query
-                ->leftJoin('group_movie', 'movies.id', '=', 'group_movie.movie_id')
-                ->whereNull('group_movie.group_id');
-        }
-
-        if ( Auth::user()->isAdmin() ) {
-            return $query;
-        }
+        $count = count($tags);
 
         return $query
-            ->leftJoin('group_movie', 'movies.id', '=', 'group_movie.movie_id')
-            ->leftJoin('group_user', 'group_movie.group_id', '=', 'group_user.group_id')
-            ->whereNull('group_movie.group_id')
-            ->orWhere('group_user.user_id', Auth::user()->id)
+            ->leftJoin('movie_tag', 'movies.id', '=', 'movie_tag.movie_id')
+            ->whereNotIn('movie_tag.tag_id', $tags)
+            ->orWhereNull('movie_tag.tag_id')
         ;
+    }
+
+    /**
+     * Returns the builder instance for pipeline using scope vector.
+     * NOTE: There should be a cleaner way to do this.
+     * See usage in \App\Http\Controllers\MovieController::index()
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeQueryBuilder($query)
+    {
+        return $query;
     }
 }
