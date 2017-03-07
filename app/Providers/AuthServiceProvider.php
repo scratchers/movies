@@ -8,6 +8,8 @@ use App\Movie;
 use App\Policies\MoviePolicy;
 use App\Group;
 use App\Policies\GroupPolicy;
+use App\Tag;
+use App\Policies\TagPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -17,9 +19,9 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
         Movie::class => MoviePolicy::class,
         Group::class => GroupPolicy::class,
+        Tag::class   => TagPolicy::class,
     ];
 
     /**

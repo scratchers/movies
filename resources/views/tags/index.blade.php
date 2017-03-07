@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Groups</h1>
+<h1>Tags</h1>
 
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
 
-    @foreach ($groups as $group)
+    @foreach ($tags as $tag)
     <div class="panel panel-default">
         <div class="panel-heading">
-            <a href="{{ URL::route('groups.show', $group) }}">
-                {{ $group->name }}
+            <a href="{{ URL::route('tags.show', $tag) }}">
+                {{ $tag->name }}
             </a>
         </div>
 

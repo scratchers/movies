@@ -18,6 +18,8 @@
         integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU"
         crossorigin="anonymous">
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
@@ -50,6 +52,9 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
+                        @if ( Auth::check() )
+                        <li id="li-nav-tags"><a href="#" onclick="$('#nav-select-tags-div').toggle('blind'); $('#li-nav-tags').toggleClass('active'); return false;">Tags</a></li>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -69,6 +74,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ route('tags.index') }}">Tags</a></li>
                                     <li><a href="{{ route('groups.index') }}">Groups</a></li>
                                     <li>
                                         <a href="{{ route('logout') }}"
@@ -83,11 +89,14 @@
                                     </li>
                                 </ul>
                             </li>
+
                         @endif
                     </ul>
                 </div>
             </div>
         </nav>
+
+    @include('tags.partials.nav')
 
 <div class="container">
 
@@ -104,7 +113,7 @@
         @endunless
 
         @unless(empty($edit))
-        @can('update', $edit['class'])
+        @can('update', $edit['object'])
         <li>
             <a  id="{{ $edit['id'] }}"
                 href="{{ $edit['route'] }}">
@@ -129,6 +138,18 @@
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
     crossorigin="anonymous"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+    <script
+    src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+    integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+    crossorigin="anonymous"></script>
+
     @yield('scripts')
+
+    <script type="text/javascript">
+        $('.nav-select-tags').select2();
+    </script>
+
 </body>
 </html>

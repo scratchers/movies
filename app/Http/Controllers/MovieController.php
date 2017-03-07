@@ -9,6 +9,7 @@ use App\Policies\MoviePolicy;
 use Illuminate\Support\Facades\Auth;
 use App\Group;
 use View;
+use App\Tag;
 
 class MovieController extends Controller
 {
@@ -33,27 +34,23 @@ class MovieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $user = Auth::user();
+        $movies = Movie::queryBuilder();
 
-        $movies = Movie::with('groups')->get()->filter(function ($movie, $key) use ($user) {
-            if ( $movie->groups->isEmpty() ) {
-                return true;
-            }
+        if ( $request->has('alltags') ) {
+            $movies->allTagged($request->alltags);
+        }
 
-            if ( is_null($user) ) {
-                return false;
-            }
+        if ( $request->has('anytags') ) {
+            $movies->anyTagged($request->anytags);
+        }
 
-            if ( $user->isAdmin() ) {
-                return true;
-            }
+        if ( $request->has('nottags') ) {
+            $movies->notTagged($request->nottags);
+        }
 
-            return (new MoviePolicy)->view($user, $movie);
-        });
-
-        return view('movies.index', ['movies' => $movies]);
+        return view('movies.index', ['movies' => $movies->get()]);
     }
 
     /**
@@ -131,14 +128,23 @@ class MovieController extends Controller
             $this->authorize('view', $movie);
         }
 
-        return view('movies.show', [
+        $data = [
             'movie' => $movie,
             'edit' => [
-                'id'    => "link-edit-movie-{$movie->id}",
-                'class' => $movie,
-                'route' => route('movies.edit', $movie),
-            ]
-        ]);
+                'id'     => "link-edit-movie-{$movie->id}",
+                'object' => $movie,
+                'route'  => route('movies.edit', $movie),
+            ],
+        ];
+
+        if ( Auth::check() ) {
+            $tags = Auth::User()->tags;
+            $data['tags']  = $tags->diff($movie->tags);
+            $movie->tags   = $movie->tags->intersect($tags);
+            $data['movie'] = $movie;
+        }
+
+        return view('movies.show', $data);
     }
 
     /**
@@ -159,10 +165,10 @@ class MovieController extends Controller
             'method' => method_field('PUT'),
             'groups' => $groups,
             'edit' => [
-                'id'    => "link-show-movie-{$movie->id}",
-                'class' => $movie,
-                'route' => route('movies.show', $movie),
-                'text'  => 'Cancel',
+                'id'     => "link-show-movie-{$movie->id}",
+                'object' => $movie,
+                'route'  => route('movies.show', $movie),
+                'text'   => 'Cancel',
             ]
         ];
 
@@ -216,5 +222,39 @@ class MovieController extends Controller
         $movie->groups()->sync($groups ?? []);
 
         return redirect(route('movies.show', ['movie' => $movie]));
+    }
+
+    /**
+     * Synchronize a user's movie tags.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Movie  $movie
+     * @return \Illuminate\Http\Response
+     */
+    public function tags(Request $request, Movie $movie)
+    {
+        $user = $request->user();
+
+        $tags = collect($request->input('tags'));
+
+        $tags->transform(function($tag) use ($user){
+            if ( !is_numeric($tag) ) {
+                return (Tag::firstOrCreate([
+                    'name' => $tag,
+                    'created_by_user_id' => $user->id,
+                ]))->id;
+            }
+            return $tag;
+        });
+
+        $allTags = $user->tags;
+
+        $tags = $allTags->find($tags->toArray());
+
+        $movie->tags()->detach($allTags);
+
+        $movie->tags()->attach($tags);
+
+        return redirect(route('movies.show', compact('movie')));
     }
 }

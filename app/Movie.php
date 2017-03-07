@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Scopes\MovieScope;
 
 class Movie extends Model
 {
@@ -40,6 +41,14 @@ class Movie extends Model
         return !$this->groups->isEmpty();
     }
 
+    /**
+     * Common and personal tags for the movie.
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
     public function __get($key)
     {
         if ($key === 'basename') {
@@ -47,5 +56,87 @@ class Movie extends Model
         }
 
         return parent::__get($key);
+    }
+
+    public function currentUserTags()
+    {
+        return $this->tags->intersect(Tag::currentUserTags()->get());
+    }
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new MovieScope);
+    }
+
+    /**
+     * Scope query to only return tagged movies.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAllTagged($query, $tags)
+    {
+        $count = count($tags);
+
+        return $query
+            ->leftJoin('movie_tag AS alltags', 'movies.id', '=', 'alltags.movie_id')
+            ->whereIn('alltags.tag_id', $tags)
+            ->groupBy('movies.id')
+            ->havingRaw("COUNT(DISTINCT alltags.tag_id) = $count")
+            // thanks Gordon http://stackoverflow.com/a/27209368/4233593
+        ;
+    }
+
+    /**
+     * Scope query to movies with any of the submitted tags.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAnyTagged($query, $tags)
+    {
+        return $query
+            ->leftJoin('movie_tag AS anytags', 'movies.id', '=', 'anytags.movie_id')
+            ->whereIn('anytags.tag_id', $tags)
+        ;
+    }
+
+    /**
+     * Scope query to only return tagged movies.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeNotTagged($query, $tags)
+    {
+        return $query
+            ->whereNotIn('movies.id', function($query) use ($tags){
+                $query
+                    ->select('movie_id')
+                    ->from('movie_tag')
+                    ->whereIn('tag_id', $tags)
+                ;
+            })
+        ;
+    }
+
+    /**
+     * Returns the builder instance for pipeline using scope vector.
+     * NOTE: There should be a cleaner way to do this.
+     * See usage in \App\Http\Controllers\MovieController::index()
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeQueryBuilder($query)
+    {
+        return $query;
     }
 }
