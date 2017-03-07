@@ -7,13 +7,13 @@
     <div class="flex-container">
         <div>
             <button type="submit" class="btn btn-default">
-                With All Tags:
+                With All:
             </button>
         </div>
 
         <div style="width:100%">
-            <select id="nav-select-tags"
-                name="tags[]"
+            <select id="nav-select-alltags"
+                name="alltags[]"
                 class="js-example-basic-multiple nav-select-tags"
                 multiple="multiple"
                 style="width:100%"
@@ -21,7 +21,7 @@
 
                 @foreach(Auth::user()->tags as $tag)
                 <option id="tag-{{ $tag->id }}" value="{{ $tag->id }}"
-                    @if ( request()->has('tags') && in_array($tag->id, request()->tags) )
+                    @if ( request()->has('alltags') && in_array($tag->id, request()->alltags) )
                         selected
                     @endif
                 >
@@ -36,13 +36,13 @@
     <div class="flex-container">
         <div>
             <button type="submit" class="btn btn-default">
-                Not Tagged:
+                With Any:
             </button>
         </div>
 
         <div style="width:100%">
-            <select id="nav-select-notags"
-                name="notags[]"
+            <select id="nav-select-anytags"
+                name="anytags[]"
                 class="js-example-basic-multiple nav-select-tags"
                 multiple="multiple"
                 style="width:100%"
@@ -50,7 +50,36 @@
 
                 @foreach(Auth::user()->tags as $tag)
                 <option id="tag-{{ $tag->id }}" value="{{ $tag->id }}"
-                    @if ( request()->has('notags') && in_array($tag->id, request()->notags) )
+                    @if ( request()->has('anytags') && in_array($tag->id, request()->anytags) )
+                        selected
+                    @endif
+                >
+                    {{ $tag->name }}
+                </option>
+                @endforeach
+
+            </select>
+        </div>
+    </div>
+
+    <div class="flex-container">
+        <div>
+            <button type="submit" class="btn btn-default">
+                Without:
+            </button>
+        </div>
+
+        <div style="width:100%">
+            <select id="nav-select-nottags"
+                name="nottags[]"
+                class="js-example-basic-multiple nav-select-tags"
+                multiple="multiple"
+                style="width:100%"
+            >
+
+                @foreach(Auth::user()->tags as $tag)
+                <option id="tag-{{ $tag->id }}" value="{{ $tag->id }}"
+                    @if ( request()->has('nottags') && in_array($tag->id, request()->nottags) )
                         selected
                     @endif
                 >

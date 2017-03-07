@@ -81,16 +81,30 @@ class Movie extends Model
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeTagged($query, $tags)
+    public function scopeAllTagged($query, $tags)
     {
         $count = count($tags);
 
         return $query
-            ->leftJoin('movie_tag', 'movies.id', '=', 'movie_tag.movie_id')
-            ->whereIn('movie_tag.tag_id', $tags)
+            ->leftJoin('movie_tag AS alltags', 'movies.id', '=', 'alltags.movie_id')
+            ->whereIn('alltags.tag_id', $tags)
             ->groupBy('movies.id')
-            ->havingRaw("COUNT(DISTINCT movie_tag.tag_id) = $count")
+            ->havingRaw("COUNT(DISTINCT alltags.tag_id) = $count")
             // thanks Gordon http://stackoverflow.com/a/27209368/4233593
+        ;
+    }
+
+    /**
+     * Scope query to movies with any of the submitted tags.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAnyTagged($query, $tags)
+    {
+        return $query
+            ->leftJoin('movie_tag AS anytags', 'movies.id', '=', 'anytags.movie_id')
+            ->whereIn('anytags.tag_id', $tags)
         ;
     }
 

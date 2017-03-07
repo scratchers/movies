@@ -38,12 +38,16 @@ class MovieController extends Controller
     {
         $movies = Movie::queryBuilder();
 
-        if ( $request->has('tags') ) {
-            $movies->tagged($request->tags);
+        if ( $request->has('alltags') ) {
+            $movies->allTagged($request->alltags);
         }
 
-        if ( $request->has('notags') ) {
-            $movies->notTagged($request->notags);
+        if ( $request->has('anytags') ) {
+            $movies->anyTagged($request->anytags);
+        }
+
+        if ( $request->has('nottags') ) {
+            $movies->notTagged($request->nottags);
         }
 
         return view('movies.index', ['movies' => $movies->get()]);
