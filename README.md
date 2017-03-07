@@ -94,7 +94,7 @@ Users can rate movies on an integer scale of 0-100.
 
 <p align="center">
     <a href="https://www.lucidchart.com/documents/view/71db6d9b-3e8c-4e9a-923f-01e76c6836fd">
-        <img src="https://www.lucidchart.com/publicSegments/view/6eb89c27-54b0-4e17-b092-254f6a5540c9/image.png" />
+        <img src="https://www.lucidchart.com/publicSegments/view/1f27e189-1a58-4f05-b641-bac0ea4fb3c1/image.png" />
     </a>
 </p>
 
