@@ -37,13 +37,20 @@ class User extends Authenticatable
         return $this->belongsToMany(Group::class);
     }
 
-
     /**
      * Tags created by User.
      */
     public function tags()
     {
         return $this->hasMany(Tag::class, 'created_by_user_id');
+    }
+
+    /**
+     * Vistas owned by User.
+     */
+    public function vistas()
+    {
+        return $this->hasMany(Vista::class);
     }
 
     /**

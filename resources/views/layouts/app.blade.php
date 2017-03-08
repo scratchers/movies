@@ -66,7 +66,9 @@
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
 
-                            <li><a href="{{ route('home') }}">Home</a></li>
+                            @unless( empty($vista = Auth::user()->vistas->first()) )
+                            <li><a href="{{ $vista->path }}">{{ $vista->name }}</a></li>
+                            @endunless
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
