@@ -68,6 +68,7 @@
 
                             @unless( empty($vista = Auth::user()->vistas->first()) )
                             <li><a href="{{ $vista->path }}">{{ $vista->name }}</a></li>
+                            <li><a id="modal-link" href="{{ route('vistas.create') }}">Modal</a></li>
                             @endunless
 
                             <li class="dropdown">
@@ -132,18 +133,17 @@
 
     </div>
 
-    <!-- Scripts -->
-    <script src="/js/app.js"></script>
-
-    <script
-    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
     crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
-    <script
-    src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
     integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
     crossorigin="anonymous"></script>
 
@@ -151,7 +151,20 @@
 
     <script type="text/javascript">
         $('.nav-select-tags').select2();
+        $('#modal-link').click(function(e) {
+            e.preventDefault();
+            var url = $(this).attr('href');
+            $.ajax({
+                    type: "GET",
+                    url: url,
+                    success: function (data) {
+                        $('#myModal').html(data).modal();
+                    }
+            });
+        });
     </script>
+
+<div id="myModal" class="modal fade" role="dialog"></div>
 
 </body>
 </html>

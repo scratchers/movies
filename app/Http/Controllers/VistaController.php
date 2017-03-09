@@ -24,7 +24,7 @@ class VistaController extends Controller
      */
     public function create()
     {
-        //
+        return view('vistas.create');
     }
 
     /**
