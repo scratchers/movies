@@ -68,8 +68,8 @@
 
                             @unless( empty($filter = Auth::user()->filters->first()) )
                             <li><a href="{{ $filter->path }}">{{ $filter->name }}</a></li>
-                            <li><a id="modal-link" href="{{ route('filters.create') }}">Filters</a></li>
                             @endunless
+                            <li><a class="modal-link" href="{{ route('filters.create') }}">Save Filter</a></li>
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -151,20 +151,27 @@
 
     <script type="text/javascript">
         $('.nav-select-tags').select2();
-        $('#modal-link').click(function(e) {
+        $('.modal-link').click(function(e) {
             e.preventDefault();
             var url = $(this).attr('href');
             $.ajax({
                     type: "GET",
                     url: url,
                     success: function (data) {
-                        $('#myModal').html(data).modal();
+                        $('#myModal .modal-content').html(data);
+                        $('#input-path').val('{{ str_replace(url()->to("/"), '', request()->fullUrl()) }}');
+                        $('#myModal').modal();
                     }
             });
         });
     </script>
 
-<div id="myModal" class="modal fade" role="dialog"></div>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

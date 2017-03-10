@@ -1,17 +1,25 @@
-<div class="modal-dialog">
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title">Save this Filter</h4>
+</div>
 
-    <!-- Modal content-->
-    <div class="modal-content">
-        <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
-        </div>
-        <div class="modal-body">
-        <p>Some text in the modal.</p>
-        </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<form class="form-horizontal" role="form" method="POST" action="{{ route('filters.store') }}">
+    {{ csrf_field() }}
+    <input id="input-path" name="path" type="hidden">
+
+    <div class="modal-body">
+
+        <div class="form-group">
+            <label for="name" class="col-md-2 control-label">Name</label>
+
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="name" required>
+            </div>
         </div>
     </div>
 
-</div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+
+</form>

@@ -8,6 +8,16 @@ use Illuminate\Http\Request;
 class FilterController extends Controller
 {
     /**
+     * Creates Tag Controller.
+     *
+     * @return TagController
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Filter::class);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -35,7 +45,14 @@ class FilterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $filter = new Filter([
+            'name' => $request->input('name'),
+            'path' => $request->input('path'),
+        ]);
+
+        $request->user()->filters()->save($filter);
+
+        return redirect()->back();
     }
 
     /**
