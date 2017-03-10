@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVistasTable extends Migration
+class CreateFiltersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateVistasTable extends Migration
      */
     public function up()
     {
-        Schema::create('vistas', function (Blueprint $table) {
+        Schema::create('filters', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->softDeletes();
@@ -38,6 +38,6 @@ class CreateVistasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vistas');
+        Schema::dropIfExists('filters');
     }
 }

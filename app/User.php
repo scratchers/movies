@@ -48,9 +48,9 @@ class User extends Authenticatable
     /**
      * Vistas owned by User.
      */
-    public function vistas()
+    public function filters()
     {
-        return $this->hasMany(Vista::class);
+        return $this->hasMany(Filter::class);
     }
 
     /**

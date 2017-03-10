@@ -25,7 +25,7 @@ class CreateTriggerNewUserDefaults extends Migration
                     ('watched', NEW.id, NOW());
 
                 -- saves the default home view as no blocked tags
-                INSERT INTO vistas
+                INSERT INTO filters
                     (`name`, `path`, `user_id`, `created_at`)
                 VALUES (
                     'Home',

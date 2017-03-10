@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Vista extends Model
+class Filter extends Model
 {
     use SoftDeletes;
 
@@ -20,7 +20,7 @@ class Vista extends Model
     ];
 
     /**
-     * User who owns the vista.
+     * User who owns the filter.
      */
     public function user()
     {

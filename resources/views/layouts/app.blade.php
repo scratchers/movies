@@ -66,9 +66,9 @@
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
 
-                            @unless( empty($vista = Auth::user()->vistas->first()) )
-                            <li><a href="{{ $vista->path }}">{{ $vista->name }}</a></li>
-                            <li><a id="modal-link" href="{{ route('vistas.create') }}">Modal</a></li>
+                            @unless( empty($filter = Auth::user()->filters->first()) )
+                            <li><a href="{{ $filter->path }}">{{ $filter->name }}</a></li>
+                            <li><a id="modal-link" href="{{ route('filters.create') }}">Filters</a></li>
                             @endunless
 
                             <li class="dropdown">

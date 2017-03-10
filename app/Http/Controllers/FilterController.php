@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Vista;
+use App\Filter;
 use Illuminate\Http\Request;
 
-class VistaController extends Controller
+class FilterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +24,7 @@ class VistaController extends Controller
      */
     public function create()
     {
-        return view('vistas.create');
+        return view('filters.create');
     }
 
     /**

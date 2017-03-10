@@ -20,7 +20,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function(){
     Route::resource('groups', 'GroupController');
     Route::resource('tags', 'TagController');
-    Route::resource('vistas', 'VistaController');
+    Route::resource('filters', 'FilterController');
 });
 
 // auth middleware applied selectively in MovieController constructor
