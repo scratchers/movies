@@ -69,7 +69,33 @@
                             @unless( empty($filter = Auth::user()->filters->first()) )
                             <li><a href="{{ $filter->path }}">{{ $filter->name }}</a></li>
                             @endunless
-                            <li><a class="modal-link" href="{{ route('filters.create') }}">Save Filter</a></li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    Filters <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    @foreach ( Auth::user()->filters as $filter)
+                                        <li>
+                                            <div class="flex-container">
+                                                <a href="#">
+                                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="{{ $filter->path }}">
+                                                    {{ $filter->name }}
+                                                </a>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                    <li>
+                                        <a class="modal-link" href="{{ route('filters.create') }}">
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                            Save New
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

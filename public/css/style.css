@@ -3,6 +3,10 @@
     display: flex;
     justify-content: space-between;
 }
+.dropdown-menu .flex-container {
+    padding-left: 10px;
+    padding-right: 10px;
+}
 .navbar {
     margin-bottom: 0px;
 }
