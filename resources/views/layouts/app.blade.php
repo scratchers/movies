@@ -79,7 +79,7 @@
                                     @foreach ( Auth::user()->bookmarks as $bookmark)
                                         <li>
                                             <div class="flex-container">
-                                                <a href="#">
+                                                <a class="modal-link" href="{{ route('bookmarks.edit', $bookmark) }}">
                                                     <i class="fa fa-pencil" aria-hidden="true"></i>
                                                 </a>
                                                 <a href="{{ $bookmark->path }}">

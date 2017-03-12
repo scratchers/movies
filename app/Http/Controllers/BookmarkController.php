@@ -90,7 +90,9 @@ class BookmarkController extends Controller
      */
     public function update(Request $request, Bookmark $bookmark)
     {
-        //
+        $bookmark->update($request->all());
+
+        return back();
     }
 
     /**
