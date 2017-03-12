@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Filter extends Model
+class Bookmark extends Model
 {
     use SoftDeletes;
 
@@ -20,7 +20,7 @@ class Filter extends Model
     ];
 
     /**
-     * User who owns the filter.
+     * User who owns the bookmark.
      */
     public function user()
     {

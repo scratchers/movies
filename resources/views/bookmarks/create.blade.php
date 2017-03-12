@@ -1,9 +1,9 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">&times;</button>
-    <h4 class="modal-title">Save this Filter</h4>
+    <h4 class="modal-title">Bookmark This</h4>
 </div>
 
-<form class="form-horizontal" role="form" method="POST" action="{{ route('filters.store') }}">
+<form class="form-horizontal" role="form" method="POST" action="{{ route('bookmarks.store') }}">
     {{ csrf_field() }}
     <input id="input-path" name="path" type="hidden">
 

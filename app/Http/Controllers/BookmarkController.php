@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Filter;
+use App\Bookmark;
 use Illuminate\Http\Request;
 
-class FilterController extends Controller
+class BookmarkController extends Controller
 {
     /**
      * Creates Tag Controller.
@@ -14,7 +14,7 @@ class FilterController extends Controller
      */
     public function __construct()
     {
-        $this->authorizeResource(Filter::class);
+        $this->authorizeResource(Bookmark::class);
     }
 
     /**
@@ -34,7 +34,7 @@ class FilterController extends Controller
      */
     public function create()
     {
-        return view('filters.create');
+        return view('bookmarks.create');
     }
 
     /**
@@ -45,12 +45,12 @@ class FilterController extends Controller
      */
     public function store(Request $request)
     {
-        $filter = new Filter([
+        $bookmark = new Bookmark([
             'name' => $request->input('name'),
             'path' => $request->input('path'),
         ]);
 
-        $request->user()->filters()->save($filter);
+        $request->user()->bookmarks()->save($bookmark);
 
         return redirect()->back();
     }
@@ -58,10 +58,10 @@ class FilterController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Vista  $vista
+     * @param  \App\Bookmark  $bookmark
      * @return \Illuminate\Http\Response
      */
-    public function show(Vista $vista)
+    public function show(Bookmark $bookmark)
     {
         //
     }
@@ -69,22 +69,26 @@ class FilterController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Vista  $vista
+     * @param  \App\Bookmark  $bookmark
      * @return \Illuminate\Http\Response
      */
-    public function edit(Vista $vista)
+    public function edit(Bookmark $bookmark)
     {
-        //
+        $data = [
+            'bookmark' => $bookmark,
+        ];
+
+        return view('bookmarks.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Vista  $vista
+     * @param  \App\Bookmark  $bookmark
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Vista $vista)
+    public function update(Request $request, Bookmark $bookmark)
     {
         //
     }
@@ -92,10 +96,10 @@ class FilterController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Vista  $vista
+     * @param  \App\Bookmark  $bookmark
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vista $vista)
+    public function destroy(Bookmark $bookmark)
     {
         //
     }

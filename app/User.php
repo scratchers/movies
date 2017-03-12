@@ -46,11 +46,11 @@ class User extends Authenticatable
     }
 
     /**
-     * Vistas owned by User.
+     * Bookmarks owned by User.
      */
-    public function filters()
+    public function bookmarks()
     {
-        return $this->hasMany(Filter::class);
+        return $this->hasMany(Bookmark::class);
     }
 
     /**
