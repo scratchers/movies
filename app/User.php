@@ -4,10 +4,12 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -35,13 +37,20 @@ class User extends Authenticatable
         return $this->belongsToMany(Group::class);
     }
 
-
     /**
      * Tags created by User.
      */
     public function tags()
     {
         return $this->hasMany(Tag::class, 'created_by_user_id');
+    }
+
+    /**
+     * Bookmarks owned by User.
+     */
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class);
     }
 
     /**

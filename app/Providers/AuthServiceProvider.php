@@ -4,12 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use App\Movie;
-use App\Policies\MoviePolicy;
-use App\Group;
-use App\Policies\GroupPolicy;
-use App\Tag;
-use App\Policies\TagPolicy;
+use App\{Movie,Group,Tag,Bookmark};
+use App\Policies\{MoviePolicy,GroupPolicy,TagPolicy,BookmarkPolicy};
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -19,9 +15,10 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Movie::class => MoviePolicy::class,
-        Group::class => GroupPolicy::class,
-        Tag::class   => TagPolicy::class,
+        Movie::class  => MoviePolicy::class,
+        Group::class  => GroupPolicy::class,
+        Tag::class    => TagPolicy::class,
+        Bookmark::class => BookmarkPolicy::class,
     ];
 
     /**

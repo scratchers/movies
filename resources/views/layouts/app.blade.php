@@ -66,7 +66,36 @@
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
 
-                            <li><a href="{{ route('home') }}">Home</a></li>
+                            @unless( empty($bookmark = Auth::user()->bookmarks->first()) )
+                            <li><a href="{{ $bookmark->path }}">{{ $bookmark->name }}</a></li>
+                            @endunless
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    Bookmarks <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    @foreach ( Auth::user()->bookmarks as $bookmark)
+                                        <li>
+                                            <div class="flex-container">
+                                                <a class="modal-link" href="{{ route('bookmarks.edit', $bookmark) }}">
+                                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="{{ $bookmark->path }}">
+                                                    {{ $bookmark->name }}
+                                                </a>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                    <li>
+                                        <a class="modal-link" href="{{ route('bookmarks.create') }}">
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                            Save New
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -130,18 +159,17 @@
 
     </div>
 
-    <!-- Scripts -->
-    <script src="/js/app.js"></script>
-
-    <script
-    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
     crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
-    <script
-    src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
     integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
     crossorigin="anonymous"></script>
 
@@ -149,7 +177,27 @@
 
     <script type="text/javascript">
         $('.nav-select-tags').select2();
+        $('.modal-link').click(function(e) {
+            e.preventDefault();
+            var url = $(this).attr('href');
+            $.ajax({
+                    type: "GET",
+                    url: url,
+                    success: function (data) {
+                        $('#myModal .modal-content').html(data);
+                        $('#input-path').val('{{ str_replace(url()->to("/"), '', request()->fullUrl()) }}');
+                        $('#myModal').modal();
+                    }
+            });
+        });
     </script>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
