@@ -15,7 +15,7 @@ class GenreController extends Controller
      */
     public function __construct()
     {
-        $this->authorizeResource(Genre::class);
+        $this->middleware('auth', ['except' => ['index','show']]);
 
         View::share('create', [
             'id'    => 'link-create-genre',
@@ -45,7 +45,7 @@ class GenreController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize(Genre::class);
     }
 
     /**
@@ -56,7 +56,7 @@ class GenreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('create', Genre::class);
     }
 
     /**
@@ -87,7 +87,7 @@ class GenreController extends Controller
      */
     public function edit(Genre $genre)
     {
-        //
+        $this->authorize('update', $genre);
     }
 
     /**
@@ -99,7 +99,7 @@ class GenreController extends Controller
      */
     public function update(Request $request, Genre $genre)
     {
-        //
+        $this->authorize('update', $genre);
     }
 
     /**
@@ -110,6 +110,6 @@ class GenreController extends Controller
      */
     public function destroy(Genre $genre)
     {
-        //
+        $this->authorize('delete', $genre);
     }
 }
