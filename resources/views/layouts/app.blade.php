@@ -55,6 +55,7 @@
                         @if ( Auth::check() )
                         <li id="li-nav-tags"><a href="#" onclick="$('#nav-select-tags-div').toggle('blind'); $('#li-nav-tags').toggleClass('active'); return false;">Tags</a></li>
                         @endif
+                        <li id="li-nav-genres"><a href="{{ route('genres.index') }}">Genres</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

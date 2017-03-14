@@ -31,7 +31,11 @@ class GenreController extends Controller
      */
     public function index()
     {
-        //
+        $data = [
+            'genres' => Genre::all(),
+        ];
+
+        return view('genres.index', $data);
     }
 
     /**
@@ -63,7 +67,16 @@ class GenreController extends Controller
      */
     public function show(Genre $genre)
     {
-        //
+        $data = [
+            'genre' => $genre,
+            'edit' => [
+                'id'     => "link-edit-genre-{$genre->id}",
+                'object' => $genre,
+                'route'  => route('genres.edit', $genre),
+            ],
+        ];
+
+        return view('genres.show', $data);
     }
 
     /**

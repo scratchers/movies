@@ -19,7 +19,7 @@ class GenrePolicy
      */
     public function view(User $user, Genre $genre)
     {
-        //
+        return true;
     }
 
     /**
