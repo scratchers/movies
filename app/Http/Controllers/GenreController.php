@@ -46,6 +46,12 @@ class GenreController extends Controller
     public function create()
     {
         $this->authorize(Genre::class);
+
+        $data = [
+            'route'  => route('genres.store'),
+        ];
+
+        return view('genres.create', $data);
     }
 
     /**
@@ -57,6 +63,14 @@ class GenreController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create', Genre::class);
+
+        $genre = Genre::withTrashed()->firstOrCreate($request->except('_method', '_token'));
+
+        if ($genre->trashed()) {
+            $genre->restore();
+        }
+
+        return redirect(route('genres.show', $genre));
     }
 
     /**
@@ -129,5 +143,9 @@ class GenreController extends Controller
     public function destroy(Genre $genre)
     {
         $this->authorize('delete', $genre);
+
+        $genre->delete();
+
+        return redirect(route('genres.index'));
     }
 }
