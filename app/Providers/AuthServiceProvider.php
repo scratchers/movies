@@ -15,9 +15,9 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Movie::class  => MoviePolicy::class,
-        Group::class  => GroupPolicy::class,
-        Tag::class    => TagPolicy::class,
+        Movie::class    => MoviePolicy::class,
+        Group::class    => GroupPolicy::class,
+        Tag::class      => TagPolicy::class,
         Bookmark::class => BookmarkPolicy::class,
     ];
 
