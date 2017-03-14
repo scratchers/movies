@@ -88,6 +88,20 @@ class GenreController extends Controller
     public function edit(Genre $genre)
     {
         $this->authorize('update', $genre);
+
+        $data = [
+            'genre'    => $genre,
+            'route'  => route('genres.update', $genre),
+            'method' => method_field('PUT'),
+            'edit' => [
+                'id'     => "link-show-genre-{$genre->id}",
+                'object' => $genre,
+                'route'  => route('genres.show', $genre),
+                'text'   => 'Cancel',
+            ],
+        ];
+
+        return view('genres.edit', $data);
     }
 
     /**
@@ -100,6 +114,10 @@ class GenreController extends Controller
     public function update(Request $request, Genre $genre)
     {
         $this->authorize('update', $genre);
+
+        $genre->update($request->all());
+
+        return redirect(route('genres.show', $genre));
     }
 
     /**
