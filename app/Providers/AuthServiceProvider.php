@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use App\{Movie,Group,Tag,Bookmark};
-use App\Policies\{MoviePolicy,GroupPolicy,TagPolicy,BookmarkPolicy};
+use App\{Movie,Group,Tag,Bookmark,Genre};
+use App\Policies\{MoviePolicy,GroupPolicy,TagPolicy,BookmarkPolicy,GenrePolicy};
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -19,6 +19,7 @@ class AuthServiceProvider extends ServiceProvider
         Group::class    => GroupPolicy::class,
         Tag::class      => TagPolicy::class,
         Bookmark::class => BookmarkPolicy::class,
+        Genre::class    => GenrePolicy::class,
     ];
 
     /**

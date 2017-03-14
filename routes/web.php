@@ -21,6 +21,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('groups', 'GroupController');
     Route::resource('tags', 'TagController');
     Route::resource('bookmarks', 'BookmarkController');
+    Route::resource('genres', 'GenreController');
 });
 
 // auth middleware applied selectively in MovieController constructor
