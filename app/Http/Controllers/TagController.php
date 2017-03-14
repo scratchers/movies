@@ -125,7 +125,7 @@ class TagController extends Controller
     {
         $tag->update($request->all());
 
-        return view('tags.show', ['tag' => $tag]);
+        return redirect(route('tags.show', $tag));
     }
 
     /**
