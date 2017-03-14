@@ -2,27 +2,4 @@
 
 @section('content')
 <h1>{{ $genre->name }}</h1>
-
-<div class="row">
-    <div class="col-md-8 col-md-offset-2">
-
-        <div class="panel panel-default">
-            <div class="panel-body">
-
-                <label for="name" class="col-md-2 control-label">Name</label>
-
-                <div class="col-md-10">
-                    <input class="form-control"
-                        type="text"
-                        name="name"
-                        value="{{ $genre->name }}"
-                        readonly
-                    />
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-</div>
 @endsection
