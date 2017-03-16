@@ -30,6 +30,8 @@ Route::name('movies.addnew')
     ->post('/movies/create', 'MovieController@create');
 Route::name('movies.group')
     ->match(['put', 'patch'], '/movies/{movie}/group', 'MovieController@group');
+Route::name('movies.genres')
+     ->put('/movies/{movie}/genres', 'MovieController@genres');
 Route::name('movies.tags')
     ->post('/movies/{movie}/tags', 'MovieController@tags');
 Route::resource('movies', 'MovieController');

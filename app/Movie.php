@@ -42,11 +42,19 @@ class Movie extends Model
     }
 
     /**
-     * Common and personal tags for the movie.
+     * Personal tags for the movie.
      */
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    /**
+     * Genres that belong to the movie.
+     */
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class);
     }
 
     public function __get($key)
