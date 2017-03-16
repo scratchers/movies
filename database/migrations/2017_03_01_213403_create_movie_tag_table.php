@@ -29,7 +29,7 @@ class CreateMovieTagTable extends Migration
                 ->onDelete('cascade');
 
             $table->primary(['tag_id', 'movie_id']);
-});
+        });
     }
 
     /**
