@@ -42,11 +42,19 @@ class Movie extends Model
     }
 
     /**
-     * Common and personal tags for the movie.
+     * Personal tags for the movie.
      */
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    /**
+     * Genres that belong to the movie.
+     */
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class);
     }
 
     public function __get($key)
@@ -122,6 +130,58 @@ class Movie extends Model
                     ->select('movie_id')
                     ->from('movie_tag')
                     ->whereIn('tag_id', $tags)
+                ;
+            })
+        ;
+    }
+
+    /**
+     * Scope query to only return tagged movies.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAllGenres($query, $genres)
+    {
+        $count = count($genres);
+
+        return $query
+            ->leftJoin('genre_movie AS allgenres', 'movies.id', '=', 'allgenres.movie_id')
+            ->whereIn('allgenres.genre_id', $genres)
+            ->groupBy('movies.id')
+            ->havingRaw("COUNT(DISTINCT allgenres.genre_id) = $count")
+            // thanks Gordon http://stackoverflow.com/a/27209368/4233593
+        ;
+    }
+
+    /**
+     * Scope query to movies with any of the submitted tags.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAnyGenres($query, $genres)
+    {
+        return $query
+            ->leftJoin('genre_movie AS anygenres', 'movies.id', '=', 'anygenres.movie_id')
+            ->whereIn('anygenres.genre_id', $genres)
+        ;
+    }
+
+    /**
+     * Scope query to only return tagged movies.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeNotGenres($query, $genres)
+    {
+        return $query
+            ->whereNotIn('movies.id', function($query) use ($genres){
+                $query
+                    ->select('movie_id')
+                    ->from('genre_movie')
+                    ->whereIn('genre_id', $genres)
                 ;
             })
         ;

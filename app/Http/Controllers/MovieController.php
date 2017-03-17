@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Group;
 use View;
 use App\Tag;
+use App\Genre;
 
 class MovieController extends Controller
 {
@@ -48,6 +49,18 @@ class MovieController extends Controller
 
         if ( $request->has('nottags') ) {
             $movies->notTagged($request->nottags);
+        }
+
+        if ( $request->has('allgenres') ) {
+            $movies->allGenres($request->allgenres);
+        }
+
+        if ( $request->has('anygenres') ) {
+            $movies->anyGenres($request->anygenres);
+        }
+
+        if ( $request->has('notgenres') ) {
+            $movies->notGenres($request->notgenres);
         }
 
         return view('movies.index', ['movies' => $movies->get()]);
@@ -159,11 +172,14 @@ class MovieController extends Controller
 
         $groups = Group::all()->diff($movie->groups);
 
+        $genres = Genre::all()->diff($movie->genres);
+
         $data = [
             'movie'  => $movie,
             'route'  => route('movies.update', $movie),
             'method' => method_field('PUT'),
             'groups' => $groups,
+            'genres' => $genres,
             'edit' => [
                 'id'     => "link-show-movie-{$movie->id}",
                 'object' => $movie,
@@ -254,6 +270,22 @@ class MovieController extends Controller
         $movie->tags()->detach($allTags);
 
         $movie->tags()->attach($tags);
+
+        return redirect(route('movies.show', compact('movie')));
+    }
+
+    /**
+     * Synchronize a movie's genres.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Movie  $movie
+     * @return \Illuminate\Http\Response
+     */
+    public function genres(Request $request, Movie $movie)
+    {
+        $this->authorize('update', $movie);
+
+        $movie->genres()->sync($request->input('genres') ?? []);
 
         return redirect(route('movies.show', compact('movie')));
     }

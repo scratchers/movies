@@ -52,6 +52,22 @@ $('#select-tags').select2({
 
                     <div class="row">
                         <label class="col-md-2 control-label">
+                            Genres
+                        </label>
+
+                        <div class="col-md-10">
+                            <ul>
+                                @foreach($movie->genres as $genre)
+                                <li id="genre-{{ $genre->id }}">
+                                    {{ $genre->name }}
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label class="col-md-2 control-label">
                             Groups
                         </label>
 

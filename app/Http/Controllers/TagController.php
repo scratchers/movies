@@ -125,7 +125,7 @@ class TagController extends Controller
     {
         $tag->update($request->all());
 
-        return view('tags.show', ['tag' => $tag]);
+        return redirect(route('tags.show', $tag));
     }
 
     /**
@@ -136,6 +136,8 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+
+        return redirect(route('tags.index'));
     }
 }

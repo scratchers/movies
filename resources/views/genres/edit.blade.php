@@ -1,29 +1,18 @@
 @extends('layouts.app')
 
-@section('scripts')
-<script type="text/javascript">
-$('#select-groups').select2();
-$('#select-genres').select2();
-</script>
-@endsection()
-
 @section('content')
-<h1>{{ $movie->basename }}</h1>
+<h1>{{ $genre->name }}</h1>
 
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
 
-    @include('movies.partials.form')
+    @include('genres.partials.form')
 
-    @include('movies.partials.groups')
-
-    @include('movies.partials.genres')
-
-    @can('delete', $movie)
+    @can('delete', $genre)
     <div class="panel panel-default">
         <div class="panel-body flex-container">
             <form role="form"
-                action="{{ route('movies.destroy', $movie) }}"
+                action="{{ route('genres.destroy', $genre) }}"
                 method="POST"
                 class="form-horizontal"
             >
