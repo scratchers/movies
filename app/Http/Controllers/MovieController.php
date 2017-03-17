@@ -51,6 +51,18 @@ class MovieController extends Controller
             $movies->notTagged($request->nottags);
         }
 
+        if ( $request->has('allgenres') ) {
+            $movies->allGenres($request->allgenres);
+        }
+
+        if ( $request->has('anygenres') ) {
+            $movies->anyGenres($request->anygenres);
+        }
+
+        if ( $request->has('notgenres') ) {
+            $movies->notGenres($request->notgenres);
+        }
+
         return view('movies.index', ['movies' => $movies->get()]);
     }
 
