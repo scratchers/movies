@@ -10,9 +10,11 @@
 .navbar {
     margin-bottom: 0px;
 }
-#nav-select-tags-div, .nav-select-tags {
+#nav-select-tags-div, .nav-select-tags,
+#nav-select-genres-div, .nav-select-genres {
     width: 100%;
 }
-#nav-select-tags-div {
+#nav-select-tags-div,
+#nav-select-genres-div {
     display: none;
 }

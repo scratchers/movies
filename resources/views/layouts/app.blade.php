@@ -55,7 +55,7 @@
                         @if ( Auth::check() )
                         <li id="li-nav-tags"><a href="#" onclick="$('#nav-select-tags-div').toggle('blind'); $('#li-nav-tags').toggleClass('active'); return false;">Tags</a></li>
                         @endif
-                        <li id="li-nav-genres"><a href="{{ route('genres.index') }}">Genres</a></li>
+                        <li id="li-nav-genres"><a href="#" onclick="$('#nav-select-genres-div').toggle('blind'); $('#li-nav-genres').toggleClass('active'); return false;">Genres</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -106,6 +106,7 @@
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="{{ route('tags.index') }}">Tags</a></li>
                                     <li><a href="{{ route('groups.index') }}">Groups</a></li>
+                                    <li><a href="{{ route('genres.index') }}">Genres</a></li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -127,6 +128,7 @@
         </nav>
 
     @include('tags.partials.nav')
+    @include('genres.partials.nav')
 
 <div class="container">
 
@@ -178,6 +180,7 @@
 
     <script type="text/javascript">
         $('.nav-select-tags').select2();
+        $('.nav-select-genres').select2();
         $('.modal-link').click(function(e) {
             e.preventDefault();
             var url = $(this).attr('href');
