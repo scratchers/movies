@@ -1,8 +1,5 @@
 @if ( Auth::check() )
 <div id="nav-select-tags-div">
-    <form role="form"
-        action="{{ route('movies.index') }}"
-        class="form-horizontal">
 
     <div class="flex-container">
         <div>
@@ -91,6 +88,5 @@
         </div>
     </div>
 
-    </form>
 </div>
 @endif

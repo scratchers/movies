@@ -1,9 +1,6 @@
 <?php $genres = App\Genre::all(); ?>
 
 <div id="nav-select-genres-div">
-    <form role="form"
-        action="{{ route('movies.index') }}"
-        class="form-horizontal">
 
     <div class="flex-container">
         <div>
@@ -92,5 +89,4 @@
         </div>
     </div>
 
-    </form>
 </div>

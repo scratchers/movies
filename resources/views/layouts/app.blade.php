@@ -127,8 +127,14 @@
             </div>
         </nav>
 
+<form role="form"
+    action="{{ route('movies.index') }}"
+    class="form-horizontal">
+
     @include('tags.partials.nav')
     @include('genres.partials.nav')
+
+</form>
 
 <div class="container">
 
