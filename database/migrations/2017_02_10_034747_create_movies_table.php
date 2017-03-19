@@ -16,10 +16,27 @@ class CreateMoviesTable extends Migration
         Schema::create('movies', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->string('filename')->unique();
-            $table->softDeletes();
+            $table->string('mnt');
+
+            $table->string('title')->nullable();
+            $table->string('imdb_id')->unique()->nullable();
+            $table->text('description')->nullable();
+            $table->date('released_on')->nullable();
+            $table->unsignedInteger('runtime_minutes')->nullable();
+            $table->string('country')->nullable();
+            $table->string('language')->nullable();
         });
+
+        DB::unprepared("
+            CREATE TRIGGER movies_default_title
+            BEFORE INSERT ON movies FOR EACH ROW
+                IF NEW.title IS NULL THEN
+                    SET NEW.title := NEW.filename;
+                END IF;;
+        ");
     }
 
     /**

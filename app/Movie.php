@@ -14,6 +14,14 @@ class Movie extends Model
 
     protected $fillable = [
         'filename',
+        'mnt',
+        'title',
+        'imdb_id',
+        'description',
+        'released_on',
+        'runtime_minutes',
+        'country',
+        'language',
     ];
 
     /**
