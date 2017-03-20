@@ -28,6 +28,7 @@ class CreateMoviesTable extends Migration
             $table->unsignedInteger('runtime_minutes')->nullable();
             $table->string('country')->nullable();
             $table->string('language')->nullable();
+            $table->string('poster')->nullable();
         });
 
         DB::unprepared("
