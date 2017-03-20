@@ -69,7 +69,7 @@ class Movie extends Model
     public function __get($key)
     {
         if ($key === 'basename') {
-            return $this->basename ?? $this->basename = basename($this->filename);
+            return $this->basename ?? $this->basename = pathinfo($this->filename, PATHINFO_FILENAME);
         }
 
         return parent::__get($key);
