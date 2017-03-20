@@ -31,6 +31,7 @@ class Movie extends Model
      */
     protected $dates = [
         'deleted_at',
+        'released_on',
     ];
 
     /**
