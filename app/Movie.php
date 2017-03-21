@@ -22,6 +22,7 @@ class Movie extends Model
         'runtime_minutes',
         'country',
         'language',
+        'poster',
     ];
 
     /**

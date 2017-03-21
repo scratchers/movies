@@ -75,6 +75,13 @@
             </div>
         </div>
 
+        <div class="form-group{{ $errors->has('poster') ? ' has-error' : '' }}">
+            <label for="poster" class="col-md-2 control-label">Poster</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="poster" value="{{ $movie->poster }}">
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-md-12">
                 <button type="submit" class="btn btn-primary">
