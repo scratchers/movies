@@ -9,46 +9,29 @@ $('#select-tags').select2({
 @endsection()
 
 @section('content')
-    <h1>{{ $movie->basename }}</h1>
+    <h1>{{ $movie->title }}</h1>
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
 
             <div class="panel panel-default">
 
-                {{-- tags --}}
                 @if ( Auth::check() )
                 <div class="panel-heading">
-                    <form role="form"
-                        action="{{ route('movies.tags', $movie) }}"
-                        method="POST"
-                        class="form-horizontal">
-                        {{ csrf_field() }}
-
-                        <div class="flex-container">
-                            <div style="width:100%">
-                                @include('tags.partials.select')
-                            </div>
-
-                            <div>
-                                <button type="submit" class="btn btn-default">
-                                    Save
-                                </button>
-                            </div>
-                        </div>
-
-                    </form>
+                    <img src="{{ asset( 'mnt/movies/'.$movie->poster ) }}"></img>
                 </div>
                 @endif
 
                 <div class="panel-body">
-                    <div class="row">
-                        <label class="col-md-2 control-label">Filename</label>
+                    @foreach ( $movie->fillable as $fillable )
+                        <div class="row">
+                            <label class="col-md-2 control-label">{{ $fillable }}</label>
 
-                        <div class="col-md-10">
-                            {{ $movie->filename }}
+                            <div class="col-md-10">
+                                {{ $movie->$fillable }}
+                            </div>
                         </div>
-                    </div>
+                    @endforeach
 
                     <div class="row">
                         <label class="col-md-2 control-label">
@@ -82,6 +65,31 @@ $('#select-tags').select2({
                         </div>
                     </div>
                 </div>
+
+                {{-- tags --}}
+                @if ( Auth::check() )
+                <div class="panel-footer">
+                    <form role="form"
+                        action="{{ route('movies.tags', $movie) }}"
+                        method="POST"
+                        class="form-horizontal">
+                        {{ csrf_field() }}
+
+                        <div class="flex-container">
+                            <div style="width:100%">
+                                @include('tags.partials.select')
+                            </div>
+
+                            <div>
+                                <button type="submit" class="btn btn-default">
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                @endif
             </div>
 
         </div>

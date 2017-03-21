@@ -73,6 +73,10 @@ class Movie extends Model
             return $this->basename ?? $this->basename = pathinfo($this->filename, PATHINFO_FILENAME);
         }
 
+        if ($key === 'fillable') {
+            return $this->fillable;
+        }
+
         return parent::__get($key);
     }
 
