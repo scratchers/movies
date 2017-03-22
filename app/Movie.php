@@ -14,6 +14,15 @@ class Movie extends Model
 
     protected $fillable = [
         'filename',
+        'mnt',
+        'title',
+        'imdb_id',
+        'description',
+        'released_on',
+        'runtime_minutes',
+        'country',
+        'language',
+        'poster',
     ];
 
     /**
@@ -23,6 +32,7 @@ class Movie extends Model
      */
     protected $dates = [
         'deleted_at',
+        'released_on',
     ];
 
     /**
@@ -60,7 +70,11 @@ class Movie extends Model
     public function __get($key)
     {
         if ($key === 'basename') {
-            return $this->basename ?? $this->basename = basename($this->filename);
+            return $this->basename ?? $this->basename = pathinfo($this->filename, PATHINFO_FILENAME);
+        }
+
+        if ($key === 'fillable') {
+            return $this->fillable;
         }
 
         return parent::__get($key);

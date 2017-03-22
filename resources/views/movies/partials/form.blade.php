@@ -7,9 +7,78 @@
 
         <div class="form-group{{ $errors->has('filename') ? ' has-error' : '' }}">
             <label for="filename" class="col-md-2 control-label">Filename</label>
-
             <div class="col-md-10">
                 <input type="text" class="form-control" name="filename" value="{{ $movie->filename }}" required>
+            </div>
+        </div>
+
+        <div class="form-group{{ $errors->has('mnt') ? ' has-error' : '' }}">
+            <label for="mnt" class="col-md-2 control-label">mnt</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="mnt" value="{{ $movie->mnt or 'movies' }}" required>
+            </div>
+        </div>
+
+        <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+            <label for="title" class="col-md-2 control-label">Title</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="title" value="{{ $movie->title or $movie->basename }}">
+            </div>
+        </div>
+
+        <div class="form-group{{ $errors->has('imdb_id') ? ' has-error' : '' }}">
+            <label for="imdb_id" class="col-md-2 control-label">imdb#</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="imdb_id" value="{{ $movie->imdb_id }}">
+            </div>
+        </div>
+
+        <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+            <label for="description" class="col-md-2 control-label">Description</label>
+            <div class="col-md-10">
+                <textarea class="form-control" name="description" value="{{ $movie->description }}"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group{{ $errors->has('released_on') ? ' has-error' : '' }}">
+            <label for="released_on" class="col-md-2 control-label">Released On</label>
+            <div class="col-md-10">
+                <input type="date" class="form-control" name="released_on" value="{{ $movie->released_on }}">
+            </div>
+        </div>
+
+        <div class="form-group{{ $errors->has('runtime_minutes') ? ' has-error' : '' }}">
+            <label for="runtime_minutes" class="col-md-2 control-label">Runtime Minutes</label>
+            <div class="col-md-10">
+                <input
+                    name="runtime_minutes"
+                    type="number"
+                    min="0"
+                    step="1"
+                    class="form-control"
+                    value="{{ $movie->runtime_minutes }}"
+                >
+            </div>
+        </div>
+
+        <div class="form-group{{ $errors->has('country') ? ' has-error' : '' }}">
+            <label for="country" class="col-md-2 control-label">Country</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="country" value="{{ $movie->country }}">
+            </div>
+        </div>
+
+        <div class="form-group{{ $errors->has('language') ? ' has-error' : '' }}">
+            <label for="language" class="col-md-2 control-label">Language</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="language" value="{{ $movie->language }}">
+            </div>
+        </div>
+
+        <div class="form-group{{ $errors->has('poster') ? ' has-error' : '' }}">
+            <label for="poster" class="col-md-2 control-label">Poster</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="poster" value="{{ $movie->poster }}">
             </div>
         </div>
 

@@ -120,11 +120,16 @@ class MovieController extends Controller
     {
         $this->authorize('create', Movie::class);
 
-        $movie = Movie::withTrashed()->firstOrCreate($request->except('_method', '_token'));
+        $input['filename'] = $request->input('filename');
+        $input['mnt'] = 'movies';
+
+        $movie = Movie::withTrashed()->firstOrCreate($input);
 
         if ($movie->trashed()) {
             $movie->restore();
         }
+
+        $movie->update($request->except('_method', '_token'));
 
         return redirect(route('movies.show', $movie));
     }
