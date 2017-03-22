@@ -11,6 +11,8 @@ use App\Group;
 use View;
 use App\Tag;
 use App\Genre;
+use App\Guessit;
+use Carbon\Carbon;
 
 class MovieController extends Controller
 {
@@ -101,6 +103,14 @@ class MovieController extends Controller
         $movie = new Movie;
 
         $movie->filename = $request->input('filename', '');
+
+        $guess = new Guessit($movie);
+
+        $movie->title = $guess->title;
+
+        if ( !empty($year = $guess->year) ) {
+            $movie->released_on = Carbon::createFromDate($year, 1, 1);
+        }
 
         $data = [
             'movie'  => $movie,
