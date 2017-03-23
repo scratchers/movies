@@ -104,13 +104,7 @@ class MovieController extends Controller
 
         $movie->filename = $request->input('filename', '');
 
-        $guess = new Guessit($movie);
-
-        $movie->title = $guess->title;
-
-        if ( !empty($year = $guess->year) ) {
-            $movie->released_on = Carbon::createFromDate($year, 1, 1);
-        }
+        $this->guessit($movie);
 
         $data = [
             'movie'  => $movie,
@@ -118,6 +112,25 @@ class MovieController extends Controller
         ];
 
         return view('movies.create', $data);
+    }
+
+    /**
+     * Guess movie metadata.
+     *
+     * @param  \App\Movie
+     * @return void
+     */
+    protected function guessit(Movie &$movie)
+    {
+        if ( !empty(env('GUESSIT_URL')) ) {
+            $guess = new Guessit($movie);
+
+            $movie->title = $guess->title;
+
+            if ( !empty($year = $guess->year) ) {
+                $movie->released_on = Carbon::createFromDate($year, 1, 1);
+            }
+        }
     }
 
     /**
