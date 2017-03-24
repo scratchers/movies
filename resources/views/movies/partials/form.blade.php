@@ -1,5 +1,4 @@
 <div class="panel panel-default">
-    <div class="panel-heading">{{ $movie->basename }}</div>
     <div class="panel-body">
     <form class="form-horizontal" role="form" method="POST" action="{{ $route }}">
         {{ csrf_field() }}
@@ -43,7 +42,12 @@
         <div class="form-group{{ $errors->has('released_on') ? ' has-error' : '' }}">
             <label for="released_on" class="col-md-2 control-label">Released On</label>
             <div class="col-md-10">
-                <input type="date" class="form-control" name="released_on" value="{{ $movie->released_on }}">
+                <input
+                    name="released_on"
+                    type="date"
+                    class="form-control"
+                    value="{{ isset($movie->released_on) ? $movie->released_on->toDateString() : '' }}"
+                >
             </div>
         </div>
 

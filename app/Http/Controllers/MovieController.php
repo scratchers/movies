@@ -11,6 +11,8 @@ use App\Group;
 use View;
 use App\Tag;
 use App\Genre;
+use App\Guessit;
+use Carbon\Carbon;
 
 class MovieController extends Controller
 {
@@ -102,12 +104,33 @@ class MovieController extends Controller
 
         $movie->filename = $request->input('filename', '');
 
+        $this->guessit($movie);
+
         $data = [
             'movie'  => $movie,
             'route'  => route('movies.store'),
         ];
 
         return view('movies.create', $data);
+    }
+
+    /**
+     * Guess movie metadata.
+     *
+     * @param  \App\Movie
+     * @return void
+     */
+    protected function guessit(Movie &$movie)
+    {
+        if ( !empty(env('GUESSIT_URL')) ) {
+            $guess = new Guessit($movie);
+
+            $movie->title = $guess->title;
+
+            if ( !empty($year = $guess->year) ) {
+                $movie->released_on = Carbon::createFromDate($year, 1, 1);
+            }
+        }
     }
 
     /**
