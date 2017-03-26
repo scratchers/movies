@@ -5,11 +5,12 @@ namespace App\Meta;
 use App\Movie;
 use InvalidArgumentException;
 use Exception;
+use Carbon\Carbon;
 
 class Guessit implements MetaService
 {
     protected $hostname;
-    protected $filename;
+    protected $movie;
     protected $guess;
 
     public function __construct(Movie &$movie)
@@ -20,13 +21,17 @@ class Guessit implements MetaService
             );
         }
 
-        if ( empty($this->filename = $movie->filename) ) {
+        if ( empty($movie->filename) ) {
             throw new InvalidArgumentException(
                 'Movie requires a filename to guess.'
             );
         }
 
-        $this->guessit();
+        $this->movie =& $movie;
+
+        $this->makeRequest();
+
+        $this->apply();
     }
 
     public function __get($property)
@@ -38,9 +43,9 @@ class Guessit implements MetaService
         return $this->guess[$property] ?? null;
     }
 
-    protected function guessit()
+    protected function makeRequest()
     {
-        $query = "{$this->hostname}/?filename={$this->filename}";
+        $query = "{$this->hostname}/?filename={$this->movie->filename}";
 
         $client = new \GuzzleHttp\Client;
 
@@ -53,5 +58,21 @@ class Guessit implements MetaService
         }
 
         $this->guess = json_decode($response->getBody(), $array = true);
+    }
+
+    /**
+     * Apply guessed attributes to model with special mappings.
+     *
+     * @return void
+     */
+    protected function apply()
+    {
+        foreach ( $this->guess as $key => $value ) {
+            $this->movie->$key = $value;
+        }
+
+        if ( empty($this->movie->released_on) && !empty($year = $this->guess['year']) ) {
+            $this->movie->released_on = Carbon::createFromDate($year, 1, 1);
+        }
     }
 }

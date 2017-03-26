@@ -12,7 +12,6 @@ use View;
 use App\Tag;
 use App\Genre;
 use App\Meta\Guessit;
-use Carbon\Carbon;
 use App\MediaType;
 
 class MovieController extends Controller
@@ -128,27 +127,11 @@ class MovieController extends Controller
      */
     protected function getMeta(Movie &$movie)
     {
-        $this->guessit($movie);
-        $this->requestMeta($movie);
-    }
-
-    /**
-     * Guess movie metadata from filename.
-     *
-     * @param  \App\Movie
-     * @return void
-     */
-    protected function guessit(Movie &$movie)
-    {
         if ( !empty(env('GUESSIT_URL')) ) {
-            $guess = new Guessit($movie);
-
-            $movie->title = $guess->title;
-
-            if ( !empty($year = $guess->year) ) {
-                $movie->released_on = Carbon::createFromDate($year, 1, 1);
-            }
+            new Guessit($movie);
         }
+
+        $this->requestMeta($movie);
     }
 
     /**
