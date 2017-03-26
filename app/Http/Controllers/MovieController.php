@@ -77,7 +77,8 @@ class MovieController extends Controller
     {
         $this->authorize('create', Movie::class);
 
-        $files  = collect(Storage::disk('movies')->allFiles());
+        $files = collect(Storage::disk('movies')->allFiles());
+
         $movies = Movie::all()->pluck('filename');
 
         $movies = $files->diff($movies)->transform(function ($filename) {
