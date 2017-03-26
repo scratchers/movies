@@ -110,7 +110,7 @@ class MovieController extends Controller
 
         $movie->filename = $request->input('filename');
 
-        $this->guessit($movie);
+        $this->getMeta($movie);
 
         $data = [
             'movie'  => $movie,
@@ -121,7 +121,19 @@ class MovieController extends Controller
     }
 
     /**
-     * Guess movie metadata.
+     * Extract information about the movie.
+     *
+     * @param  \App\Movie
+     * @return void
+     */
+    protected function getMeta(Movie &$movie)
+    {
+        $this->guessit($movie);
+        $this->requestMeta($movie);
+    }
+
+    /**
+     * Guess movie metadata from filename.
      *
      * @param  \App\Movie
      * @return void
@@ -137,6 +149,16 @@ class MovieController extends Controller
                 $movie->released_on = Carbon::createFromDate($year, 1, 1);
             }
         }
+    }
+
+    /**
+     * Make an HTTP request to a service, like imdb, for more meta data.
+     *
+     * @param  \App\Movie
+     * @return void
+     */
+    protected function requestMeta(Movie &$movie)
+    {
     }
 
     /**
