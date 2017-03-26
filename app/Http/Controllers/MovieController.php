@@ -11,7 +11,7 @@ use App\Group;
 use View;
 use App\Tag;
 use App\Genre;
-use App\Guessit;
+use App\Meta\Guessit;
 use Carbon\Carbon;
 use App\MediaType;
 

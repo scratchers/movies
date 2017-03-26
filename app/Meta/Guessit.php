@@ -1,17 +1,18 @@
 <?php
 
-namespace App;
+namespace App\Meta;
 
+use App\Movie;
 use InvalidArgumentException;
 use Exception;
 
-class Guessit
+class Guessit implements MetaService
 {
     protected $hostname;
     protected $filename;
     protected $guess;
 
-    public function __construct(Movie $movie)
+    public function __construct(Movie &$movie)
     {
         if ( empty($this->hostname = env('GUESSIT_URL')) ) {
             throw new InvalidArgumentException(
