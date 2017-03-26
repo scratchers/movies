@@ -4,12 +4,9 @@ namespace App\Meta;
 
 use App\Movie;
 
-class OmdbApi implements MetaService
+class OmdbApi extends MetaService
 {
-    protected $movie;
+    protected function validate(){}
 
-    public function __construct(Movie &$movie)
-    {
-        $this->movie =& $movie;
-    }
+    protected function makeRequest(){}
 }

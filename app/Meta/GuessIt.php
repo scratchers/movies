@@ -7,13 +7,9 @@ use InvalidArgumentException;
 use Exception;
 use Carbon\Carbon;
 
-class GuessIt implements MetaService
+class GuessIt extends MetaService
 {
-    protected $hostname;
-    protected $movie;
-    protected $guess;
-
-    public function __construct(Movie &$movie)
+    public function validate()
     {
         if ( empty($this->hostname = env('GUESSIT_URL')) ) {
             throw new InvalidArgumentException(
@@ -21,26 +17,11 @@ class GuessIt implements MetaService
             );
         }
 
-        if ( empty($movie->filename) ) {
+        if ( empty($this->movie->filename) ) {
             throw new InvalidArgumentException(
                 'Movie requires a filename to guess.'
             );
         }
-
-        $this->movie =& $movie;
-
-        $this->makeRequest();
-
-        $this->apply();
-    }
-
-    public function __get($property)
-    {
-        if ( $property === 'guess' ) {
-            return $this->guess;
-        }
-
-        return $this->guess[$property] ?? null;
     }
 
     protected function makeRequest()
@@ -57,7 +38,7 @@ class GuessIt implements MetaService
             );
         }
 
-        $this->guess = json_decode($response->getBody(), $array = true);
+        $this->attributes = json_decode($response->getBody(), $array = true);
     }
 
     /**
@@ -67,11 +48,9 @@ class GuessIt implements MetaService
      */
     protected function apply()
     {
-        foreach ( $this->guess as $key => $value ) {
-            $this->movie->$key = $value;
-        }
+        parent::apply();
 
-        if ( empty($this->movie->released_on) && !empty($year = $this->guess['year']) ) {
+        if ( empty($this->movie->released_on) && !empty($year = $this->attributes['year']) ) {
             $this->movie->released_on = Carbon::createFromDate($year, 1, 1);
         }
     }
