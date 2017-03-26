@@ -108,7 +108,7 @@ class MovieController extends Controller
 
         $movie = new Movie;
 
-        $movie->filename = $request->input('filename', '');
+        $movie->filename = $request->input('filename');
 
         $this->guessit($movie);
 
