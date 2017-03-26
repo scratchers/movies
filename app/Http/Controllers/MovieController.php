@@ -11,7 +11,7 @@ use App\Group;
 use View;
 use App\Tag;
 use App\Genre;
-use App\Meta\GuessIt;
+use App\Meta\{GuessIt,OmdbApi};
 use App\MediaType;
 
 class MovieController extends Controller
@@ -130,6 +130,8 @@ class MovieController extends Controller
         if ( !empty(env('GUESSIT_URL')) ) {
             new GuessIt($movie);
         }
+
+        new OmdbApi($movie);
     }
 
     /**
