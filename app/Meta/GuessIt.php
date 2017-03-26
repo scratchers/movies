@@ -7,7 +7,7 @@ use InvalidArgumentException;
 use Exception;
 use Carbon\Carbon;
 
-class Guessit implements MetaService
+class GuessIt implements MetaService
 {
     protected $hostname;
     protected $movie;

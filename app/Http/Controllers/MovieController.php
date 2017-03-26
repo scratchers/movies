@@ -11,7 +11,7 @@ use App\Group;
 use View;
 use App\Tag;
 use App\Genre;
-use App\Meta\Guessit;
+use App\Meta\GuessIt;
 use App\MediaType;
 
 class MovieController extends Controller
@@ -128,7 +128,7 @@ class MovieController extends Controller
     protected function getMeta(Movie &$movie)
     {
         if ( !empty(env('GUESSIT_URL')) ) {
-            new Guessit($movie);
+            new GuessIt($movie);
         }
     }
 
