@@ -130,18 +130,6 @@ class MovieController extends Controller
         if ( !empty(env('GUESSIT_URL')) ) {
             new Guessit($movie);
         }
-
-        $this->requestMeta($movie);
-    }
-
-    /**
-     * Make an HTTP request to a service, like imdb, for more meta data.
-     *
-     * @param  \App\Movie
-     * @return void
-     */
-    protected function requestMeta(Movie &$movie)
-    {
     }
 
     /**
