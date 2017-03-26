@@ -8,9 +8,13 @@ use Carbon\Carbon;
 
 class GuessIt extends MetaService
 {
+    protected function init(){
+        $this->hostname = env('GUESSIT_URL');
+    }
+
     public function validate()
     {
-        if ( empty($this->hostname = env('GUESSIT_URL')) ) {
+        if ( empty($this->hostname) ) {
             throw new InvalidArgumentException(
                 'Environment variable GUESSIT_URL not set.'
             );

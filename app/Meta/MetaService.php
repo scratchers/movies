@@ -14,6 +14,8 @@ abstract class MetaService
     public function __construct(Movie &$movie) {
         $this->movie =& $movie;
 
+        $this->init();
+
         $this->validate();
 
         $this->makeRequest();
@@ -56,6 +58,8 @@ abstract class MetaService
 
         $this->attributes = json_decode($response->getBody(), $array = true);
     }
+
+    abstract protected function init();
 
     abstract protected function validate();
 
