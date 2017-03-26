@@ -77,6 +77,10 @@ class Movie extends Model
             return $this->fillable;
         }
 
+        if ( $key === 'title' && empty($this->attributes['title']) ) {
+            return $this->__get('basename');
+        }
+
         return parent::__get($key);
     }
 
