@@ -4,7 +4,6 @@ namespace App\Meta;
 
 use App\Movie;
 use InvalidArgumentException;
-use Exception;
 use Carbon\Carbon;
 
 class GuessIt extends MetaService

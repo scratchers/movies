@@ -3,6 +3,7 @@
 namespace App\Meta;
 
 use App\Movie;
+use Exception;
 
 abstract class MetaService
 {
@@ -44,9 +45,11 @@ abstract class MetaService
 
         $response = $client->request('GET', $query);
 
-        if ($status = $response->getStatusCode() != 200) {
+        $status = $response->getStatusCode();
+
+        if ($status != 200) {
             throw new Exception(
-                __CLASS__." host returned status code $status."
+                static::class." host returned status code $status."
             );
         }
 
