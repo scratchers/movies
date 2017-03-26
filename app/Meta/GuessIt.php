@@ -24,21 +24,9 @@ class GuessIt extends MetaService
         }
     }
 
-    protected function makeRequest()
+    protected function query() : string
     {
-        $query = "{$this->hostname}/?filename={$this->movie->filename}";
-
-        $client = new \GuzzleHttp\Client;
-
-        $response = $client->request('GET', $query);
-
-        if ($status = $response->getStatusCode() != 200) {
-            throw new Exception(
-                "Guessit host returned status code $status."
-            );
-        }
-
-        $this->attributes = json_decode($response->getBody(), $array = true);
+        return "{$this->hostname}/?filename={$this->movie->filename}";
     }
 
     /**

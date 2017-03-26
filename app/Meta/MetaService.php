@@ -36,7 +36,24 @@ abstract class MetaService
         }
     }
 
+    protected function makeRequest()
+    {
+        $query = $this->query();
+
+        $client = new \GuzzleHttp\Client;
+
+        $response = $client->request('GET', $query);
+
+        if ($status = $response->getStatusCode() != 200) {
+            throw new Exception(
+                __CLASS__." host returned status code $status."
+            );
+        }
+
+        $this->attributes = json_decode($response->getBody(), $array = true);
+    }
+
     abstract protected function validate();
 
-    abstract protected function makeRequest();
+    abstract protected function query() : string;
 }

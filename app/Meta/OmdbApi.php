@@ -8,5 +8,7 @@ class OmdbApi extends MetaService
 {
     protected function validate(){}
 
-    protected function makeRequest(){}
+    protected function query() : string {
+        return '';
+    }
 }

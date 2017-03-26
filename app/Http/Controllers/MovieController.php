@@ -131,7 +131,7 @@ class MovieController extends Controller
             new GuessIt($movie);
         }
 
-        new OmdbApi($movie);
+//         new OmdbApi($movie);
     }
 
     /**
