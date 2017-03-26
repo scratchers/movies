@@ -13,6 +13,7 @@ use App\Tag;
 use App\Genre;
 use App\Guessit;
 use Carbon\Carbon;
+use App\MediaType;
 
 class MovieController extends Controller
 {
@@ -78,6 +79,10 @@ class MovieController extends Controller
         $this->authorize('create', Movie::class);
 
         $files = collect(Storage::disk('movies')->allFiles());
+
+        $files = $files->filter(function ($file) {
+            return MediaType::is('video', $file);
+        });
 
         $movies = Movie::all()->pluck('filename');
 
