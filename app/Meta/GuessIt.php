@@ -8,7 +8,7 @@ use Carbon\Carbon;
 
 class GuessIt extends MetaService
 {
-    protected function init(){
+    protected function initialize(){
         $this->hostname = env('GUESSIT_URL');
     }
 

@@ -14,11 +14,11 @@ abstract class MetaService
     public function __construct(Movie &$movie) {
         $this->movie =& $movie;
 
-        $this->init();
+        $this->initialize();
 
         $this->validate();
 
-        $this->makeRequest();
+        $this->request();
 
         $this->apply();
     }
@@ -40,7 +40,7 @@ abstract class MetaService
         }
     }
 
-    protected function makeRequest()
+    protected function request()
     {
         $query = $this->query();
 
@@ -59,7 +59,7 @@ abstract class MetaService
         $this->attributes = json_decode($response->getBody(), $array = true);
     }
 
-    abstract protected function init();
+    abstract protected function initialize();
 
     abstract protected function validate();
 
