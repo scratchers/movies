@@ -42,11 +42,11 @@ abstract class MetaService
 
     protected function request()
     {
-        $query = $this->query();
+        $query = http_build_query($this->query());
 
         $client = new \GuzzleHttp\Client;
 
-        $response = $client->request('GET', $query);
+        $response = $client->request('GET', "{$this->hostname}/?$query");
 
         $status = $response->getStatusCode();
 
@@ -63,5 +63,5 @@ abstract class MetaService
 
     abstract protected function validate();
 
-    abstract protected function query() : string;
+    abstract protected function query() : array;
 }

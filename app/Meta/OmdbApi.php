@@ -20,12 +20,24 @@ class OmdbApi extends MetaService
         }
     }
 
-    protected function query() : string {
+    protected function query() : array {
+        $query = [
+            'type' => 'movie',
+            'plot' => 'full',
+            'r'    => 'json',
+        ];
+
         if ( !empty($this->movie->imdb_id) ) {
-            return "{$this->hostname}/?i={$this->movie->imdb_id}";
+            $query['i'] = $this->movie->imdb_id;
+        } else {
+            $query['t'] = $this->movie->title;
         }
 
-        return "{$this->hostname}/?t={$this->movie->title}";
+        if ( !empty($this->movie->year) ) {
+            $query['y'] = $this->movie->year;
+        }
+
+        return $query;
     }
 
     /**

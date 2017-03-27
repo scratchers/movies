@@ -27,9 +27,11 @@ class GuessIt extends MetaService
         }
     }
 
-    protected function query() : string
+    protected function query() : array
     {
-        return "{$this->hostname}/?filename={$this->movie->filename}";
+        return [
+            'filename' => $this->movie->filename,
+        ];
     }
 
     /**
