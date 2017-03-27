@@ -23,6 +23,7 @@ class Movie extends Model
         'country',
         'language',
         'poster',
+        'rating',
     ];
 
     /**

@@ -29,6 +29,7 @@ class CreateMoviesTable extends Migration
             $table->string('country')->nullable();
             $table->string('language')->nullable();
             $table->string('poster')->nullable();
+            $table->string('rating', 5)->nullable();
         });
 
         DB::unprepared("

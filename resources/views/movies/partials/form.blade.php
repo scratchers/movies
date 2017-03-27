@@ -86,6 +86,13 @@
             </div>
         </div>
 
+        <div class="form-group{{ $errors->has('rating') ? ' has-error' : '' }}">
+            <label for="rating" class="col-md-2 control-label">Rating</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="rating" value="{{ $movie->rating }}">
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-md-12">
                 <button type="submit" class="btn btn-primary">
