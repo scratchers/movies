@@ -35,7 +35,7 @@
         <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
             <label for="description" class="col-md-2 control-label">Description</label>
             <div class="col-md-10">
-                <textarea class="form-control" name="description" value="{{ $movie->description }}"></textarea>
+                <textarea class="form-control" name="description">{{ $movie->description }}</textarea>
             </div>
         </div>
 

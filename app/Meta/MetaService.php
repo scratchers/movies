@@ -35,7 +35,7 @@ abstract class MetaService
     protected function apply()
     {
         foreach ( $this->attributes as $key => $value ) {
-            $key = snake_case($key);
+            $key = strtolower($key);
             $this->movie->$key = $value;
         }
     }
