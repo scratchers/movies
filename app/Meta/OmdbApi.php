@@ -50,8 +50,12 @@ class OmdbApi extends MetaService
         parent::apply();
 
         $this->movie->imdb_id     = $this->attributes['imdbID'] ?? null;
-        $this->movie->rating      = $this->attributes['Rated']  ?? null;
         $this->movie->description = $this->attributes['Plot']   ?? null;
+
+        $this->movie->rating = $this->attributes['Rated'] ?? null;
+        if ($this->movie->rating === 'N/A') {
+            $this->movie->rating = null;
+        }
 
         if ( !empty($this->attributes['Released']) ) {
             $this->movie->released_on = new Carbon($this->attributes['Released']);
