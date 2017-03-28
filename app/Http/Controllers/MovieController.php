@@ -77,7 +77,9 @@ class MovieController extends Controller
     {
         $this->authorize('create', Movie::class);
 
-        $files = collect(Storage::disk('movies')->allFiles());
+        $mnt = 'movies';
+
+        $files = collect(Storage::disk($mnt)->allFiles());
 
         $files = $files->filter(function ($file) {
             return MediaType::is('video', $file);
@@ -85,9 +87,10 @@ class MovieController extends Controller
 
         $movies = Movie::all()->pluck('filename');
 
-        $movies = $files->diff($movies)->transform(function ($filename) {
+        $movies = $files->diff($movies)->transform(function($filename)use($mnt){
             $movie = new Movie;
 
+            $movie->mnt = $mnt;
             $movie->filename = $filename;
 
             return $movie;
@@ -107,6 +110,7 @@ class MovieController extends Controller
 
         $movie = new Movie;
 
+        $movie->mnt = $request->input('mnt');
         $movie->filename = $request->input('filename');
 
         $this->getMeta($movie);

@@ -14,7 +14,7 @@
         <div class="form-group{{ $errors->has('mnt') ? ' has-error' : '' }}">
             <label for="mnt" class="col-md-2 control-label">mnt</label>
             <div class="col-md-10">
-                <input type="text" class="form-control" name="mnt" value="{{ $movie->mnt or 'movies' }}" required>
+                <input type="text" class="form-control" name="mnt" value="{{ $movie->mnt }}" required>
             </div>
         </div>
 

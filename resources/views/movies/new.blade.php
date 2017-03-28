@@ -12,7 +12,7 @@
                 <div class="panel-body">
                 <form class="form-horizontal" role="form" method="POST" action="{{ route('movies.create') }}">
                     {{ csrf_field() }}
-                    <p></p>
+                    <input name="mnt" type="hidden" value="{{ $movie->mnt }}">
 
                     <div class="form-group{{ $errors->has('filename') ? ' has-error' : '' }}">
                         <label for="filename" class="col-md-2 control-label">Filename</label>
