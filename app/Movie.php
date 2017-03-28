@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Scopes\MovieScope;
+use Storage;
 
 class Movie extends Model
 {
@@ -217,5 +218,35 @@ class Movie extends Model
     public function scopeQueryBuilder($query)
     {
         return $query;
+    }
+
+    /**
+     * Set movie poster downloaded from Internet.
+     *
+     * @return void
+     */
+    public function downloadPoster()
+    {
+        $client = new \GuzzleHttp\Client;
+
+        $response = $client->request('GET', $this->poster);
+
+        $status = $response->getStatusCode();
+
+        if ($status != 200) {
+            throw new Exception(
+                "Error downloading poster. Host returned status code $status for {$this->poster}."
+            );
+        }
+
+        $poster = $response->getBody();
+
+        $ext = pathinfo($this->poster, PATHINFO_EXTENSION);
+
+        $filename = hash('md5', $poster).".$ext";
+
+        Storage::disk($this->mnt)->put($filename, $poster);
+
+        $this->poster = $filename;
     }
 }

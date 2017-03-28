@@ -115,6 +115,10 @@ class MovieController extends Controller
 
         $this->getMeta($movie);
 
+        if (filter_var($movie->poster, FILTER_VALIDATE_URL) !== false) {
+            $movie->downloadPoster();
+        }
+
         $data = [
             'movie'  => $movie,
             'route'  => route('movies.store'),
